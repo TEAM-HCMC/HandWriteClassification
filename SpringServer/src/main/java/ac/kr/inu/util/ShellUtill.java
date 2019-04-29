@@ -3,10 +3,11 @@ package ac.kr.inu.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ShellUtill {
+    private static final String BASH = "/bin/bash";
+    private static final String RUN = "-c";
 
     public static Map execCommand(String... str) {
         Map<Integer, String> map = new HashMap<>();
@@ -60,5 +61,26 @@ public class ShellUtill {
         }
 
         return map;
+    }
+
+    public static String[] getBashCmd(final String shell) {
+        return getBashCmd(shell, null);
+    }
+
+    public static String[] getBashCmd(final String shell, final String parameter) {
+        List<String> callCmd = getBasicCmd();
+        callCmd.add(shell);
+        if (parameter == null) {
+            return (String[]) callCmd.toArray();
+        }
+        callCmd.add(parameter);
+        return (String[]) callCmd.toArray();
+    }
+
+    private static List<String> getBasicCmd() {
+        List<String> callCmd = new ArrayList<>();
+        callCmd.add(BASH);
+        callCmd.add(RUN);
+        return callCmd;
     }
 }

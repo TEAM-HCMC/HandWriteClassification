@@ -13,9 +13,6 @@ import java.util.Map;
 @Service
 public class ImageService {
 
-    private static final String BASH = "/bin/bash";
-    private static final String RUN = "-c";
-
     private static Logger logger = LoggerFactory.getLogger(ImageService.class);
 
 
@@ -34,11 +31,8 @@ public class ImageService {
     }
 
     public Map contourImage(String url) {
-        String cmds = "sh ../script/contour.sh " + url;
-        String[] callCmd = {BASH, RUN, cmds};
-
+        String[] callCmd = ShellUtill.getBashCmd("sh ../script/contour.sh ", url);
         Map map = ShellUtill.execCommand(callCmd);
-
         if (map.size() != 0) {
             return map;
         }
@@ -46,9 +40,7 @@ public class ImageService {
     }
 
     public Map learnModel(String name) {
-        String cmds = "sh ../script/learn.sh " + name;
-        String[] callCmd = {BASH, RUN, cmds};
-
+        String[] callCmd = ShellUtill.getBashCmd("sh ../script/learn.sh ", name);
         Map map = ShellUtill.execCommand(callCmd);
         return map;
     }
