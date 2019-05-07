@@ -1,36 +1,72 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+
+    <Header></Header>
+    <Navigation></Navigation>
+    <Container></Container>
+    <Footer></Footer>
+
   </div>
 </template>
 
+
+
+
+
+
+
+
+
+
+
 <script>
+import Header from './components/Header.vue'
+import Navigation from './components/Navigation.vue'
+import Container from './components/Container.vue'
+import Footer from './components/Footer.vue'
+
+const axios = require("axios")
+const baseUrl = require('./config/serverUrl.js');
+
+
+
+
 export default {
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+
+  components: {
+  'Header' : Header,
+  'Navigation' : Navigation,
+  'Container':Container,
+  'Footer':Footer
+}
 }
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style>
+
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,18 +74,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  
+  border:1px solid gray;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
+
 
 ul {
+  /* 리스트앞에 붙는 점 사라지게해줌 */
   list-style-type: none;
   padding: 0;
 }
 
 li {
+  /* 리스트를 한줄로 만들어줌 */
   display: inline-block;
   margin: 0 10px;
 }
