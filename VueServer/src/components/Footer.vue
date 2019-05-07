@@ -29,8 +29,12 @@ export default {}
 
 
 <style lang="css" scoped>
+
 .footer_area{
-  position: relative;
+  position: static;
   clear: left;
+  border:1px solid gray;
+  padding: 1rem 1rem 1rem 1rem;
 }
+
 </style>
