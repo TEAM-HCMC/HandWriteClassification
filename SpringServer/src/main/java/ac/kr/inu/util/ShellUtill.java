@@ -3,7 +3,10 @@ package ac.kr.inu.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ShellUtill {
     private static final String BASH = "/bin/bash";
@@ -64,17 +67,13 @@ public class ShellUtill {
     }
 
     public static String[] getBashCmd(final String shell) {
-        return getBashCmd(shell, null);
+        return getBashCmd(shell, "");
     }
 
     public static String[] getBashCmd(final String shell, final String parameter) {
         List<String> callCmd = getBasicCmd();
-        callCmd.add(shell);
-        if (parameter == null) {
-            return (String[]) callCmd.toArray();
-        }
-        callCmd.add(parameter);
-        return (String[]) callCmd.toArray();
+        callCmd.add(shell+parameter);
+        return callCmd.toArray(new String[0]);
     }
 
     private static List<String> getBasicCmd() {

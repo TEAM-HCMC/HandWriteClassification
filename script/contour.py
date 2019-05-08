@@ -2,14 +2,15 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
-
-
+from random import shuffle
+import os
 class contour:
     def __init__(self, filename):
         self.filename = filename
         self.image = cv2.imread("../originalSource/"+str(self.filename) + ".png", cv2.IMREAD_COLOR)
-        self.img = cv2.imread("../originalSource/"+str(self.filename) + ".png", cv2.IMREAD_COLOR)
-
+        self.img = cv2.imread("../originalSource/"+str(self.filename) + ".png", cv2.IMREAD_GRAYSCALE)
+        self.img_name = filename.split('/')[1]
+        self.data = []
     def imageSet(self):
         grayscaled = cv2.cvtColor(self.image, cv2.COLOR_BGR2GRAY)
 
@@ -27,17 +28,31 @@ class contour:
         edged = cv2.Canny(dilate, 50, 150)
         return edged
 
-    def drawRect(self):
+    def saveObject(self):
         t = 1
         contours, hierarchy = cv2.findContours(self.imageSet(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
+	
+        if self.img_name == 'pci':
+            label=[1,0]
+        else :
+            label=[0,1]
         for contour in contours:
             (x, y, w, h) = cv2.boundingRect(contour)
             if (w > 10 and h > 10) and (w < 400 and h < 400):
-                cv2.imwrite("../destination/" + str(self.filename) + '_' + str(t) + ".jpg", self.img[y:y + h, x:x + w])
+                #cv2.imwrite("../destination/" + str(self.filename) + '_' + str(t) + ".jpg", self.img[y:y + h, x:x + w])
+                self.data.append([np.array(cv2.resize(self.img[y:y + h, x:x + w],(100,100))),np.array(label)])
                 t = t + 1
-        plt.imshow(self.img)
+        shuffle(self.data)
+        np.save('../destination/'+self.filename+'.npy',self.data)
+    def duplicateData(self):
+        temp = []
+        if os.path.exists('{}.npy'.format('../destination/'+self.filename)):
+            temp = np.load('../destination/'+self.filename+'.npy')
+            self.data.append(temp)
+            shuffle(self.data)
+
 
 
 a = contour(sys.argv[1])
-a.drawRect()
+a.saveObject()
+a.duplicateData()

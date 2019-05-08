@@ -1,7 +1,6 @@
 package ac.kr.inu.controller;
 
 import ac.kr.inu.service.ImageService;
-import ac.kr.inu.util.FileNameUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,27 +14,33 @@ import java.util.Map;
 @RequestMapping("api/image")
 public class ImageController {
 
+    private static final String TRAIN = "train/";
+    private static final String COMPARE = "compare/";
+
     private final ImageService imageService;
 
     public ImageController(ImageService imageService) {
         this.imageService = imageService;
     }
 
-    @PostMapping("/contour")
-    public ResponseEntity<Map> contourImage(@RequestPart(value = "image") final MultipartFile file) {
+    @PostMapping("/contour/train")
+    public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, final String name) {
 
-        String url = imageService.saveImage(file);
+        String url = imageService.saveImage(file, name, TRAIN);
 
-        Map result = imageService.contourImage(FileNameUtil.getSourceNameWithOutExt(url));
+        Map result = imageService.contourImage(url);
 
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/learn")
-    public ResponseEntity<Map> learnModel(String name) {
-        Map result = imageService.learnModel(name);
+    @PostMapping("/contour/compare")
+    public ResponseEntity<Map> contourCompareImage(@RequestPart(value = "image") final MultipartFile file, final String name) {
+
+        String url = imageService.saveImage(file, name, COMPARE);
+
+        Map result = imageService.contourImage(url);
+
         return ResponseEntity.ok(result);
     }
-
 
 }

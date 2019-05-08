@@ -11,16 +11,17 @@
 }
 
 .uol {
-  font-size: 1rem;
+    font-size: 2vw;
     float: left;
     font-weight: bold;
     margin: 1rem 0rem 1rem 0rem;
+    padding-left: 2vw;
 }
 
 .uol>li {
     float: left;
-    width: 4.5rem;
-    height: 3.5rem;
+    width: 10vw;
+    height: 10vw;
 }
 
 .vertical_align {

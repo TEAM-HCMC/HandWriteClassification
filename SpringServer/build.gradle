@@ -14,9 +14,14 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
     implementation('io.springfox:springfox-swagger2:+')
     implementation('io.springfox:springfox-swagger-ui:+')
-    
+
+    compile "org.projectlombok:lombok:+"
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

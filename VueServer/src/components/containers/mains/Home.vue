@@ -8,6 +8,7 @@
 }
 
 .logo {
+    width: 400px;
     max-width: 100%;
     height: auto;
 }
@@ -45,7 +46,7 @@
 
 
 export default {
-    
+
 }
 
 </script>

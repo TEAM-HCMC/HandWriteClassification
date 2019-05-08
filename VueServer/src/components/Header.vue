@@ -10,10 +10,11 @@
     margin: 1rem auto;
 }
 
-h1 {
+.headWrite {
     position: relative;
     color: #2F3B52;
-    font-weight: 10rem;
+    font-size: 3vw;
+    font-weight: bold;
     margin: 2.5rem 0 2.5rem;
 }
 
@@ -27,7 +28,7 @@ h1 {
 
 <section class="header_area">
     <div class="service_name">
-        <h1 class="shadow">HANDWRITE CLASIFICATION MANAGEMENT CAPSTONE</h1>
+        <div class="headWrite shadow">HANDWRITE CLASIFICATION MANAGEMENT CAPSTONE</div>
     </div>
 </section>
 
