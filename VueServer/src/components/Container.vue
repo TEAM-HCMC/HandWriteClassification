@@ -49,8 +49,6 @@ import Main from './containers/Main.vue'
 import Side from './containers/Side.vue'
 
 
-
-
 export default {
     components: {
         'Main': Main,

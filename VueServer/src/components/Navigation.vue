@@ -11,7 +11,7 @@
 }
 
 .uol {
-    font-size: 2vw;
+    font-size: 1.5vw;
     float: left;
     font-weight: bold;
     margin: 1rem 0rem 1rem 0rem;

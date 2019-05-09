@@ -13,7 +13,7 @@
 .headWrite {
     position: relative;
     color: #2F3B52;
-    font-size: 3vw;
+    font-size: 4vw;
     font-weight: bold;
     margin: 2.5rem 0 2.5rem;
 }
@@ -28,7 +28,7 @@
 
 <section class="header_area">
     <div class="service_name">
-        <div class="headWrite shadow">HANDWRITE CLASIFICATION MANAGEMENT CAPSTONE</div>
+        <div class="headWrite shadow">필자 검증 캡스톤 디자인</div>
     </div>
 </section>
 

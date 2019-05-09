@@ -50,9 +50,6 @@ import Footer from './components/Footer.vue'
 const axios = require("axios")
 const baseUrl = require('./config/serverUrl.js');
 
-
-
-
 export default {
     name: 'app',
     data() {

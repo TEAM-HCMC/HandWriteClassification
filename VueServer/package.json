@@ -11,7 +11,11 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "vue": "^2.5.11"
+    "filepond": "^4.4.3",
+    "filepond-plugin-file-validate-type": "^1.2.4",
+    "filepond-plugin-image-preview": "^4.1.0",
+    "vue": "^2.5.11",
+    "vue-filepond": "^5.1.0"
   },
   "browserslist": [
     "> 1%",
