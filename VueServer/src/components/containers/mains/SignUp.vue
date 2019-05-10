@@ -1,13 +1,19 @@
-<style lang="css">
+<style lang="css" scoped>
+
+
 
 </style>
 
 <template lang="html">
 
-    <router-view></router-view>
+  <div class="signup">
+    
+  </div>
 
 </template>
 
 <script>
+
 export default {}
+
 </script>

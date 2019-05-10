@@ -1,12 +1,12 @@
-package org.dailystudio.onepiece.security.jwt;
+package ac.kr.inu.security.jwt;
 
+import ac.kr.inu.security.context.AccountContext;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import org.dailystudio.onepiece.security.context.AccountContext;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Component;
 

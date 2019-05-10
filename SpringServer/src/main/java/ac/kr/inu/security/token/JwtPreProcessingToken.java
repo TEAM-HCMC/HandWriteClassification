@@ -1,4 +1,4 @@
-package org.dailystudio.onepiece.security.token;
+package ac.kr.inu.security.token;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 

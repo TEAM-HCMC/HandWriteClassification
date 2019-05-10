@@ -1,13 +1,13 @@
-package org.dailystudio.onepiece.security.ajax.handler;
+package ac.kr.inu.security.ajax.handler;
 
+import ac.kr.inu.dto.jwt.JwtResDto;
+import ac.kr.inu.security.context.AccountContext;
+import ac.kr.inu.security.jwt.JwtFactory;
+import ac.kr.inu.security.jwt.JwtInfo;
+import ac.kr.inu.security.token.PostAuthorizationToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dailystudio.onepiece.dto.jwt.JwtResDto;
-import org.dailystudio.onepiece.security.context.AccountContext;
-import org.dailystudio.onepiece.security.jwt.JwtFactory;
-import org.dailystudio.onepiece.security.jwt.JwtInfo;
-import org.dailystudio.onepiece.security.token.PostAuthorizationToken;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -47,6 +47,6 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
         res.setHeader(JwtInfo.HEADER_NAME, jwt.getJwt());
         res.setCharacterEncoding("UTF-8");
 
-//        res.getWriter().print(objectMapper.writeValueAsString(jwt));
+        res.getWriter().print(objectMapper.writeValueAsString(jwt));
     }
 }

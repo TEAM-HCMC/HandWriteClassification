@@ -13,11 +13,15 @@
 }
 
 .content-left {
-    width: 75%;
+    width: 80%;
 }
 
 .content-right {
-    width: 25%;
+    width: 20%;
+}
+
+.shadow {
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1)
 }
 
 
@@ -34,7 +38,7 @@
         </div>
 
         <div class="content-right">
-            <Side></Side>
+            <Side class="shadow"></Side>
         </div>
 
     </div>

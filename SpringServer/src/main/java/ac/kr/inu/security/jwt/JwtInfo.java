@@ -1,4 +1,4 @@
-package org.dailystudio.onepiece.security.jwt;
+package ac.kr.inu.security.jwt;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
@@ -6,9 +6,9 @@ import java.io.UnsupportedEncodingException;
 
 public class JwtInfo {
 
-    public static final String HEADER_NAME = "JWT";
+    public static final String HEADER_NAME = "jwt";
 
-    public static final String ISSUER = "daily-studio";
+    public static final String ISSUER = "HCMC";
 
     public static final String TOKEN_KEY = "ChanInPark";
 

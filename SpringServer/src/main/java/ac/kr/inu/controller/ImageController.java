@@ -2,10 +2,7 @@ package ac.kr.inu.controller;
 
 import ac.kr.inu.service.ImageService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -23,6 +20,14 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    @PostMapping
+    public ResponseEntity<Boolean> saveImgTemporary(@RequestPart(value = "") final MultipartFile multipartFile){
+
+
+        return ResponseEntity.ok(true);
+    }
+
+    @CrossOrigin("*")
     @PostMapping("/contour/train")
     public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, final String name) {
 
@@ -33,6 +38,7 @@ public class ImageController {
         return ResponseEntity.ok(result);
     }
 
+    @CrossOrigin("*")
     @PostMapping("/contour/compare")
     public ResponseEntity<Map> contourCompareImage(@RequestPart(value = "image") final MultipartFile file, final String name) {
 

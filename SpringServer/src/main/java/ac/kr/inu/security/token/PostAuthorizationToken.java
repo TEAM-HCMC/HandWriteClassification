@@ -1,7 +1,7 @@
-package org.dailystudio.onepiece.security.token;
+package ac.kr.inu.security.token;
 
 
-import org.dailystudio.onepiece.security.context.AccountContext;
+import ac.kr.inu.security.context.AccountContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 

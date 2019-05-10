@@ -1,4 +1,4 @@
-package org.dailystudio.onepiece.security.matcher;
+package ac.kr.inu.security.matcher;
 
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;

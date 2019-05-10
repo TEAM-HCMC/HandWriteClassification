@@ -1,10 +1,10 @@
-package org.dailystudio.onepiece.security.context;
+package ac.kr.inu.security.context;
 
+import ac.kr.inu.domain.Account;
+import ac.kr.inu.domain.AccountRole;
+import ac.kr.inu.security.jwt.JwtInfo;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.extern.slf4j.Slf4j;
-import org.dailystudio.onepiece.domain.Account;
-import org.dailystudio.onepiece.domain.AccountRole;
-import org.dailystudio.onepiece.security.jwt.JwtInfo;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -18,11 +18,6 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class AccountContext extends User {
-
-//    //기본생성자
-//    private AccountContext(String idx, String password, Collection<? extends GrantedAuthority> authorities) {
-//        super(idx, password, authorities);
-//    }
 
     public AccountContext(Account account) {
         super(account.getId().toString(), account.getPassword(), parseAuthorites(account.getAccountRole()));

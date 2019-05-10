@@ -3,10 +3,7 @@ package ac.kr.inu.controller;
 import ac.kr.inu.service.ModelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -24,12 +21,14 @@ public class ModelController {
      * @param name : 이니셜
      * @return
      */
+    @CrossOrigin("*")
     @PostMapping("/learn")
     public ResponseEntity<Map> learnModel(final String name) {
         Map result = modelService.learnModel(name);
         return ResponseEntity.ok(result);
     }
 
+    @CrossOrigin("*")
     @GetMapping("/compare")
     public ResponseEntity<Map> compare(final String name) {
         Map result = modelService.compareModel(name);

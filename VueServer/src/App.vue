@@ -25,17 +25,24 @@ a {
     color: #42b983;
 }
 
+.frame{
+  width: 80%;
+  margin:0 auto;
+}
+
 </style>
 
 <template>
 
 <div id="app">
+  <div class="frame">
 
     <Header></Header>
     <Navigation></Navigation>
     <Container></Container>
     <Footer></Footer>
 
+  </div>
 </div>
 
 </template>

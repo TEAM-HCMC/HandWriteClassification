@@ -1,7 +1,7 @@
-package org.dailystudio.sbs.dto.account;
+package ac.kr.inu.dto.account;
 
+import ac.kr.inu.domain.Account;
 import lombok.Getter;
-import org.dailystudio.sbs.domain.Account;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
@@ -10,7 +10,7 @@ public class AccountSaveReqDto {
     private String password;
     private String name;
 
-    public Account toEntity(PasswordEncoder passwordEncoder){
+    public Account toEntity(PasswordEncoder passwordEncoder) {
         return Account.builder()
                 .email(this.email)
                 .name(this.name)

@@ -1,4 +1,4 @@
-package org.dailystudio.onepiece.security.ajax.handler;
+package ac.kr.inu.security.ajax.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

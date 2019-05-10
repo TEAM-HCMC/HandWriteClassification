@@ -1,11 +1,11 @@
-package org.dailystudio.onepiece.security.ajax.provider;
+package ac.kr.inu.security.ajax.provider;
 
+import ac.kr.inu.security.context.AccountContext;
+import ac.kr.inu.security.context.AccountContextService;
+import ac.kr.inu.security.token.PostAuthorizationToken;
+import ac.kr.inu.security.token.PreAuthorizationToken;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dailystudio.onepiece.security.context.AccountContext;
-import org.dailystudio.onepiece.security.context.AccountContextService;
-import org.dailystudio.onepiece.security.token.PostAuthorizationToken;
-import org.dailystudio.onepiece.security.token.PreAuthorizationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
