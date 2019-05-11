@@ -56,9 +56,15 @@ import Footer from './components/Footer.vue'
 
 const axios = require("axios")
 const baseUrl = require('./config/serverUrl.js');
+const accountStatus = require('./utils/accountStatus.js');
 
 export default {
     name: 'app',
+
+    created(){
+      accountStatus.autoCheck();
+    },
+
     data() {
         return {
             msg: 'Welcome to Your Vue.js App'

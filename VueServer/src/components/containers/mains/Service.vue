@@ -48,7 +48,7 @@
             <span class="description">
             검증 기준 <br>이미지를 업로드
           </span>
-            <file-pond name="image/contour/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
+            <file-pond name="/image/contour/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
             />
         </div>
 
@@ -57,7 +57,7 @@
                 검증 대상
                 <br>이미지를 업로드
             </div>
-            <file-pond name="image/contour/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
+            <file-pond name="/image/contour/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
             />
         </div>
     </div>
@@ -88,18 +88,21 @@
 <script>
 
 // Import Vue FilePond
-import vueFilePond from 'vue-filepond';
-// Import FilePond styles
-import 'filepond/dist/filepond.min.css';
-// Import image preview plugin styles
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-// Import image preview and file type validation plugins
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+// import vueFilePond from 'vue-filepond';
+// // Import FilePond styles
+// import 'filepond/dist/filepond.min.css';
+// // Import image preview plugin styles
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+// // Import image preview and file type validation plugins
+// import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+//
+// const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const fileUtils = require('../../../config/filepond');
+// const vueFilePond = fileUtils.vueFilePond;
 
 const baseUrl = require('../../../config/testUrl.js');
+const cookieUtils = require('../../../utils/cookie.js');
 
 export default {
 
@@ -124,11 +127,12 @@ export default {
       // file is the actual file object to send
       const formData = new FormData();
       formData.append("image", file);
-      formData.append("name", "이니셜이 들어가야할 자리");
+      formData.append("name", localStorage.getItem("name"));
       console.log("formData create.");
 
       const request = new XMLHttpRequest();
       request.open('POST', uploadUrl);
+      request.setRequestHeader("jwt",cookieUtils.getCookie('jwt'));
       console.log("XMLHttpRequest open.");
 
       // Should call the progress method to update the progress to 100% before calling load
@@ -268,7 +272,7 @@ export default {
     }
   },
   components: {
-    FilePond
+    fileUtils
   }
 
 }
