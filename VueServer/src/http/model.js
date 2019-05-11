@@ -9,10 +9,10 @@ const reqHeader = {
   }
 };
 
-var startTrain = function trainStart(name) {
+var startTrain = function trainStart(initial) {
 
   const reqDto = {
-    'name' : name,
+    'name' : initial,
   }
 
   axios.post(baseUrl + '/model/learn', reqDto, reqHeader)
@@ -25,10 +25,10 @@ var startTrain = function trainStart(name) {
 
 }
 
-var startCompare = function trainStart(name) {
+var startCompare = function trainStart(initial) {
 
   const reqDto = {
-    'name' : name,
+    'name' : initial,
   }
 
   axios.post(baseUrl + '/model/compare', reqDto, reqHeader)
