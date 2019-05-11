@@ -88,18 +88,7 @@
 <script>
 
 // Import Vue FilePond
-// import vueFilePond from 'vue-filepond';
-// // Import FilePond styles
-// import 'filepond/dist/filepond.min.css';
-// // Import image preview plugin styles
-// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
-// // Import image preview and file type validation plugins
-// import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
-//
-// const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 const fileUtils = require('../../../config/filepond');
-// const vueFilePond = fileUtils.vueFilePond;
 
 const baseUrl = require('../../../config/testUrl.js');
 const cookieUtils = require('../../../utils/cookie.js');
@@ -132,7 +121,7 @@ export default {
 
       const request = new XMLHttpRequest();
       request.open('POST', uploadUrl);
-      request.setRequestHeader("jwt",cookieUtils.getCookie('jwt'));
+      request.setRequestHeader("jwt",cookieUtils.getJwt());
       console.log("XMLHttpRequest open.");
 
       // Should call the progress method to update the progress to 100% before calling load

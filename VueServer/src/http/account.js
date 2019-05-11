@@ -3,13 +3,7 @@ const baseUrl = require('../config/testUrl.js');
 const cookieUtils = require('../utils/cookie.js');
 
 // SIGN UP
-var signUp = function signUp(email, name, password) {
-
-  const reqDto = {
-    'email': email,
-    'name': name,
-    'password': password
-  };
+var signUp = function signUp(reqDto) {
 
   const reqHeader = {
     headers: {
@@ -17,10 +11,9 @@ var signUp = function signUp(email, name, password) {
     }
   };
 
-  axios.post(baseUrl + '/account/login', reqDto, config)
+  axios.post(baseUrl + '/account/signup', reqDto, reqHeader)
     .then((res) => {
       console.log("회원가입 성공");
-      location.reload();
     })
     .catch((err) => {
       console.log("회원가입 실패");
@@ -54,12 +47,7 @@ var getAccountInfo = function getAccountInfo(jwt) {
 // GET INFO END
 
 // lOGIN
-var login = function login(email, password) {
-
-  let reqDto = {
-    'email': email,
-    'password': password
-  };
+var login = function login(reqDto) {
 
   let config = {
     headers: {
@@ -67,22 +55,23 @@ var login = function login(email, password) {
     }
   };
 
+  var message = "로그인 실패";
+
   axios.post(baseUrl + '/account/login', reqDto, config)
     .then((res) => {
-
       cookieUtils.setCookie('jwt', res.data.jwt);
-
       getAccountInfo(res.data.jwt);
-
-      console.log("로그인 성공");
-
+      message = "로그인 성공";
     })
     .catch((error) => {
-      console.log("로그인 실패");
-      localStorage.clear();
       cookieUtils.deleteCookie('jwt');
       console.log(error);
+    })
+    .then(() =>{
+      console.log(message);
+      localStorage.clear();
     });
+
 };
 // lOGIN END
 
