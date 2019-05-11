@@ -48,7 +48,7 @@
             <span class="description">
             검증 기준 <br>이미지를 업로드
           </span>
-            <file-pond name="/image/contour/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
+            <file-pond name="/image/contour/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles"
             />
         </div>
 
@@ -57,7 +57,7 @@
                 검증 대상
                 <br>이미지를 업로드
             </div>
-            <file-pond name="/image/contour/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" v-on:init="handleFilePondInit"
+            <file-pond name="/image/contour/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles"
             />
         </div>
     </div>
@@ -69,14 +69,14 @@
             <div class="description">
               모델 학습 시키기
             </div>
-            <button type="button" name="button">모델 학습 시작</button>
+            <button v-on:click="train">모델 학습 시작</button>
         </div>
 
         <div class="compare_model">
             <div class="description">
               필적 검증 하기
             </div>
-            <button type="button" name="button">필적 검증 시작</button>
+            <button v-on:click="compare">필적 검증 시작</button>
         </div>
     </div>
 
@@ -86,9 +86,9 @@
 </template>
 
 <script>
-
 // Import Vue FilePond
 const fileUtils = require('../../../config/filepond');
+const model = require('../../../http/model');
 
 const baseUrl = require('../../../config/testUrl.js');
 const cookieUtils = require('../../../utils/cookie.js');
@@ -102,8 +102,12 @@ export default {
   },
 
   methods: {
-    handleFilePondInit: function() {
+    train() {
+      model.startTrain(localStorage.getItem('name'));
+    },
 
+    compare() {
+      model.startCompare(localStorage.getItem('name'));
     },
 
     process(fieldName, file, metadata, load, error, progress, abort) {
@@ -121,7 +125,7 @@ export default {
 
       const request = new XMLHttpRequest();
       request.open('POST', uploadUrl);
-      request.setRequestHeader("jwt",cookieUtils.getJwt());
+      request.setRequestHeader("jwt", cookieUtils.getJwt());
       console.log("XMLHttpRequest open.");
 
       // Should call the progress method to update the progress to 100% before calling load
