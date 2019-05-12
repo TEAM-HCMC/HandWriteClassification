@@ -1,6 +1,6 @@
 package ac.kr.inu.service;
 
-import ac.kr.inu.util.ShellUtill;
+import ac.kr.inu.util.ShellUtil;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -20,15 +20,15 @@ public class ModelService {
     private static Logger logger = LoggerFactory.getLogger(ModelService.class);
 
     public Map learnModel(String name) {
-        log.info("input name : "+name);
-        String[] callCmd = ShellUtill.getBashCmd("sh ../script/train.sh ", TRAIN + name);
-        Map map = ShellUtill.execCommand(callCmd);
+        log.info("input name : " + name);
+        String[] callCmd = ShellUtil.getBashCmd("sh ../script/train.sh ", TRAIN + name);
+        Map map = ShellUtil.execCommand(callCmd);
         return map;
     }
 
     public Map compareModel(String name) {
-        String[] callCmd = ShellUtill.getBashCmd("sh ../script/compare.sh ", COMPARE + name);
-        Map map = ShellUtill.execCommand(callCmd);
+        String[] callCmd = ShellUtil.getBashCmd("sh ../script/compare.sh ", COMPARE + name);
+        Map map = ShellUtil.execCommand(callCmd);
         return map;
     }
 }

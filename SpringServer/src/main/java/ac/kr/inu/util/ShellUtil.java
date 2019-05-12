@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShellUtill {
+public class ShellUtil {
     private static final String BASH = "/bin/bash";
     private static final String RUN = "-c";
 
@@ -33,9 +33,11 @@ public class ShellUtill {
         String line;
         StringBuilder stringBuilder = new StringBuilder();
 
+        List<String> echos = new ArrayList<>();
         try {
             if (reader != null) {
                 while ((line = reader.readLine()) != null) {
+                    echos.add(line);
                     stringBuilder.append(line).append("\n");
                 }
             }
@@ -53,6 +55,10 @@ public class ShellUtill {
 
         if (process != null) {
             map.put(0, String.valueOf(process.exitValue()));
+
+            for (int i = 1; i <= echos.size(); i++) {
+                map.put(i, echos.get(i - 1));
+            }
         }
 
         try {
@@ -72,7 +78,7 @@ public class ShellUtill {
 
     public static String[] getBashCmd(final String shell, final String parameter) {
         List<String> callCmd = getBasicCmd();
-        callCmd.add(shell+parameter);
+        callCmd.add(shell + parameter);
         return callCmd.toArray(new String[0]);
     }
 

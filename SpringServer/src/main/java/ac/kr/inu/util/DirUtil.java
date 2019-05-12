@@ -5,7 +5,6 @@ import java.io.File;
 public class DirUtil {
 
     /**
-     *
      * @param src : 인자로 받은 파라미터로 하위 디렉토리에 새로운 디렉토리를 생성합니다.
      */
     public static void mkDir(String src) {

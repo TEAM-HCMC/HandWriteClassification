@@ -28,7 +28,7 @@
 
 <section class="header_area">
     <div class="service_name">
-        <div class="headWrite shadow">필자 검증 캡스톤 디자인</div>
+        <div class="headWrite shadow"></div>
     </div>
 </section>
 

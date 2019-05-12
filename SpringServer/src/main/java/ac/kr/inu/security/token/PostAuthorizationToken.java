@@ -17,8 +17,8 @@ public class PostAuthorizationToken extends UsernamePasswordAuthenticationToken 
         return new PostAuthorizationToken(accountContext, accountContext.getPassword(), accountContext.getAuthorities());
     }
 
-    public static PostAuthorizationToken getTokenFromJwtAccountContext(AccountContext accountContext){
-        return new PostAuthorizationToken(accountContext.getUsername(),accountContext.getPassword(),accountContext.getAuthorities());
+    public static PostAuthorizationToken getTokenFromJwtAccountContext(AccountContext accountContext) {
+        return new PostAuthorizationToken(accountContext.getUsername(), accountContext.getPassword(), accountContext.getAuthorities());
     }
 
 

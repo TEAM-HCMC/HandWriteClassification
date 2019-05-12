@@ -24,7 +24,7 @@ public class AjaxLoginFilter extends AbstractAuthenticationProcessingFilter {
     private AuthenticationFailureHandler authenticationFailureHandler;
     private ObjectMapper objectMapper;
 
-    public AjaxLoginFilter(String defaultFilterProcessesUrl, AuthenticationSuccessHandler authenticationSuccessHandler, AuthenticationFailureHandler authenticationFailureHandler,ObjectMapper objectMapper) {
+    public AjaxLoginFilter(String defaultFilterProcessesUrl, AuthenticationSuccessHandler authenticationSuccessHandler, AuthenticationFailureHandler authenticationFailureHandler, ObjectMapper objectMapper) {
         super(defaultFilterProcessesUrl);
         this.authenticationSuccessHandler = authenticationSuccessHandler;
         this.authenticationFailureHandler = authenticationFailureHandler;
@@ -33,7 +33,7 @@ public class AjaxLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse res) throws AuthenticationException, IOException, ServletException {
-        if (isJson(request)){
+        if (isJson(request)) {
             AccountLoginReqDto loginReqDto = objectMapper.readValue(request.getReader(), AccountLoginReqDto.class);
             PreAuthorizationToken preAuthorizationToken = loginReqDto.toPreAuthorizationToken();
 

@@ -22,7 +22,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
@@ -51,12 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
+    CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -70,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected AjaxLoginFilter ajaxLoginFilter() throws Exception {
-        AjaxLoginFilter filter = new AjaxLoginFilter(LOGIN_END_POINT, ajaxLoginSuccessHandler, ajaxLoginFailureHandler,objectMapper);
+        AjaxLoginFilter filter = new AjaxLoginFilter(LOGIN_END_POINT, ajaxLoginSuccessHandler, ajaxLoginFailureHandler, objectMapper);
         filter.setAuthenticationManager(getAuthenticationManager());
         filter.setAuthenticationSuccessHandler(ajaxLoginSuccessHandler);
         filter.setAuthenticationFailureHandler(ajaxLoginFailureHandler);
