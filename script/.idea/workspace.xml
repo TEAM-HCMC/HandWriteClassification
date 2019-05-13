@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56312ea7-8161-42c3-9009-d3877e28a88e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ImageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ModelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ModelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/security/ajax/filter/AjaxLoginFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/security/ajax/filter/AjaxLoginFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ImageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ModelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ModelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/ShellUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/ShellUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VueServer/src/http/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/http/model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNN_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/CNN_Class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contour.sh" beforeDir="false" afterPath="$PROJECT_DIR$/contour.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contour.py" beforeDir="false" afterPath="$PROJECT_DIR$/contour.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,11 +12,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CNN_Class.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1026">
               <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/contour.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="558">
+              <caret line="51" lean-forward="true" selection-start-line="8" selection-end-line="51" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -94,6 +96,7 @@
         <option value="$PROJECT_DIR$/modelLoad.py" />
         <option value="$PROJECT_DIR$/isitText.py" />
         <option value="$PROJECT_DIR$/contour.sh" />
+        <option value="$PROJECT_DIR$/contour.py" />
       </list>
     </option>
   </component>
@@ -254,6 +257,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1026">
           <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contour.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="51" lean-forward="true" selection-start-line="8" selection-end-line="51" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

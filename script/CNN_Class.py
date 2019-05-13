@@ -71,7 +71,7 @@ class cnn:
         #print('true_data : ',true_data[0])
         #print('false_data : ', false_data[0])
         false_list = false_data.tolist()
-        for i in range(len(true_data.tolist())):
+        for i in range(len(true_list)):
             true_list[i].append([1,0])
             data_train.append(np.asarray(true_list[i]))
         #print(data_train)
@@ -86,23 +86,25 @@ class cnn:
         data = self.train_data_set(name)
         leng = len(data)
         train = data[:-round(leng * 0.3)]  # 70% <- 트레이닝 데이터
-        #print("train : ",train)
+        print("train : ",train)
         test = data[-round(leng * 0.3):]  # 30% <- 테스트 데이터
         cnt=0;
         try: 
             Y =[i[1] for i in train]
             #print('Y : \n', Y)
             X = np.array([i[0] for i in train]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)  # training data
-        except Exception:
+        except Exception as err:
+            print("aa:",err)
             #print(train[n])
-            train.remove(i) 
+            #train.remove(i) 
         print(len(data), "  ", len(train), "  ", len(test))
         try:
             test_x = np.array([i[0] for i in test]).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # test data
             test_y = [i[1] for i in test]  # test label
-        except Exception:
-            print(test[n])
-            test.remove(i)
+        except Exception as err:
+            print("aa:",err)
+            #print(test[n])
+            #test.remove(i)
         print(len(X))
         print(len(Y))
         self.model.fit({'input': X}, {'targets': Y}, n_epoch=epoch,
