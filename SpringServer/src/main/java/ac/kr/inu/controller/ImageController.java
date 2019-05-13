@@ -1,13 +1,14 @@
 package ac.kr.inu.controller;
 
 import ac.kr.inu.service.ImageService;
-import ac.kr.inu.util.FileNameUtil;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
 
@@ -15,27 +16,41 @@ import java.util.Map;
 @RequestMapping("api/image")
 public class ImageController {
 
+    private static final String TRAIN = "train/";
+    private static final String COMPARE = "compare/";
+
     private final ImageService imageService;
 
     public ImageController(ImageService imageService) {
         this.imageService = imageService;
     }
 
-    @PostMapping("/contour")
-    public ResponseEntity<Map> contourImage(@RequestPart(value = "image") final MultipartFile file) {
+    @PostMapping
+    public ResponseEntity<Boolean> saveImgTemporary(@RequestPart(value = "") final MultipartFile multipartFile) {
 
-        String url = imageService.saveImage(file);
+        return ResponseEntity.ok(true);
+    }
 
-        Map result = imageService.contourImage(FileNameUtil.getSourceNameWithOutExt(url));
+    @PostMapping("/contour/train")
+    public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
+        Long accountId = Long.parseLong(auth.getPrincipal().toString());
+
+        String url = imageService.saveImage(file, accountId, TRAIN);
+
+        Map result = imageService.contourImage(url);
 
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/learn")
-    public ResponseEntity<Map> learnModel(String name) {
-        Map result = imageService.learnModel(name);
+    @PostMapping("/contour/compare")
+    public ResponseEntity<Map> contourCompareImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
+        Long accountId = Long.parseLong(auth.getPrincipal().toString());
+
+        String url = imageService.saveImage(file, accountId, COMPARE);
+
+        Map result = imageService.contourImage(url);
+
         return ResponseEntity.ok(result);
     }
-
 
 }
