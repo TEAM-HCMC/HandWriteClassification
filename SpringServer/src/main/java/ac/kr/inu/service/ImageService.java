@@ -1,5 +1,6 @@
 package ac.kr.inu.service;
 
+import ac.kr.inu.controller.ImageController;
 import ac.kr.inu.domain.Account;
 import ac.kr.inu.domain.AccountImg;
 import ac.kr.inu.repository.AccountImgRepository;
@@ -38,8 +39,11 @@ public class ImageService {
                 .orElseThrow(NoSuchElementException::new);
 
         Long subNumber = getImgSubNumber(account);
-
-        String name = account.getName() + "_" + subNumber;
+        String sub = "";
+        if (subDir.equals(ImageController.TRAIN)) {
+            sub = "_" + subNumber;
+        }
+        String name = account.getName() + sub;
 
         try {
             final String imageUrl = new FileSaveUtil().upload(file, name, subDir);

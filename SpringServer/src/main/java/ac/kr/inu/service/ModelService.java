@@ -23,7 +23,7 @@ public class ModelService {
 
     private final AccountRepository accountRepository;
 
-    public Map learnModel(Long accountId) {
+    public Map trainModel(Long accountId) {
         String name = getAccountName(accountId);
         String[] callCmd = ShellUtil.getBashCmd("sh ../script/train.sh ", TRAIN + name);
         Map map = ShellUtil.execCommand(callCmd);

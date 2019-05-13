@@ -24,15 +24,15 @@ public class ModelController {
     }
 
     @PostMapping("/learn")
-    public ResponseEntity<Map> learnModel(@ApiIgnore Authentication auth) {
+    public ResponseEntity<Map> trainModel(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
-        Map result = modelService.learnModel(accountId);
+        Map result = modelService.trainModel(accountId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/compare")
-    public ResponseEntity<Map> compare(@ApiIgnore Authentication auth) {
+    public ResponseEntity<Map> compareImage(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
         Map result = modelService.compareModel(accountId);
@@ -48,7 +48,7 @@ public class ModelController {
     }
 
     @GetMapping("/compare")
-    public ResponseEntity<Map> getResult(@ApiIgnore Authentication auth){
+    public ResponseEntity<Map> getCompareResult(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
         Map result = modelService.getCompareResult(accountId);
 

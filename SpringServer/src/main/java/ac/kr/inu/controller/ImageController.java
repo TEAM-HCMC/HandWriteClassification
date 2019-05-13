@@ -3,10 +3,7 @@ package ac.kr.inu.controller;
 import ac.kr.inu.service.ImageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -16,7 +13,7 @@ import java.util.Map;
 @RequestMapping("api/image")
 public class ImageController {
 
-    private static final String TRAIN = "train/";
+    public static final String TRAIN = "train/";
     private static final String COMPARE = "compare/";
 
     private final ImageService imageService;
@@ -25,11 +22,30 @@ public class ImageController {
         this.imageService = imageService;
     }
 
-    @PostMapping
-    public ResponseEntity<Boolean> saveImgTemporary(@RequestPart(value = "") final MultipartFile multipartFile) {
+    @PostMapping("/save/train")
+    public ResponseEntity<Boolean> saveTrainImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
+        Long accountId = Long.parseLong(auth.getPrincipal().toString());
+        imageService.saveImage(file, accountId, TRAIN);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/save/compare")
+    public ResponseEntity<Boolean> saveCompareImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
+        Long accountId = Long.parseLong(auth.getPrincipal().toString());
+        imageService.saveImage(file, accountId, COMPARE);
+        return ResponseEntity.ok(true);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteImage(String fileName, @ApiIgnore Authentication auth) {
 
         return ResponseEntity.ok(true);
     }
+
+//
+//    @GetMapping("")
+//    public ResponseEntity<>
+
 
     @PostMapping("/contour/train")
     public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
