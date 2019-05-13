@@ -28,8 +28,8 @@ public class ImageService {
     private final AccountImgRepository accountImgRepository;
 
     /**
-     * @param file : 입력받은 파일을 originalSource 폴더에 저장합니다.
-     * @param id : 유저의 고유 아이디값
+     * @param file   : 입력받은 파일을 originalSource 폴더에 저장합니다.
+     * @param id     : 유저의 고유 아이디값
      * @param subDir : 학습용인지 검증용인지 구분
      * @return : 파일이 저장된 위치를 반환합니다.
      */
@@ -55,10 +55,14 @@ public class ImageService {
     public Map contourImage(String url) {
         String[] callCmd = ShellUtil.getBashCmd("sh ../script/contour.sh ", url);
         Map map = ShellUtil.execCommand(callCmd);
-        if (map.size() != 0) {
+        if (isSuccess(map)) {
             return map;
         }
-        return null;
+        return ShellUtil.getFailResult();
+    }
+
+    private boolean isSuccess(Map map) {
+        return map.size() > 0;
     }
 
     private Long getImgSubNumber(Account account) {
@@ -66,7 +70,7 @@ public class ImageService {
         return accountImgs.stream()
                 .mapToLong(AccountImg::getId)
                 .max()
-                .orElse(1) + 1;
+                .orElse(0) + 1;
     }
 
 }

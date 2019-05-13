@@ -13,7 +13,7 @@ var startTrain = function trainStart(initial) {
 
   const reqDto = {
     'name' : initial,
-  }
+  };
 
   axios.post(baseUrl + '/model/learn', reqDto, reqHeader)
     .then((res) => {

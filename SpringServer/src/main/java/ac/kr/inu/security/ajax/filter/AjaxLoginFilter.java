@@ -38,7 +38,6 @@ public class AjaxLoginFilter extends AbstractAuthenticationProcessingFilter {
             PreAuthorizationToken preAuthorizationToken = loginReqDto.toPreAuthorizationToken();
 
             log.info("[request start] -> {}", request.getRequestURI());
-
             return super.getAuthenticationManager().authenticate(preAuthorizationToken);
         }
         throw new IllegalArgumentException("Wrong Content Type.");

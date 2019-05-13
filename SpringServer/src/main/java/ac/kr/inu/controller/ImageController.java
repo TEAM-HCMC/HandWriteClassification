@@ -32,7 +32,7 @@ public class ImageController {
     }
 
     @PostMapping("/contour/train")
-    public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, final String name, @ApiIgnore Authentication auth) {
+    public ResponseEntity<Map> contourTrainImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
         String url = imageService.saveImage(file, accountId, TRAIN);
@@ -43,7 +43,7 @@ public class ImageController {
     }
 
     @PostMapping("/contour/compare")
-    public ResponseEntity<Map> contourCompareImage(@RequestPart(value = "image") final MultipartFile file, final String name, @ApiIgnore Authentication auth) {
+    public ResponseEntity<Map> contourCompareImage(@RequestPart(value = "image") final MultipartFile file, @ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
         String url = imageService.saveImage(file, accountId, COMPARE);

@@ -120,7 +120,6 @@ export default {
       // file is the actual file object to send
       const formData = new FormData();
       formData.append("image", file);
-      formData.append("name", localStorage.getItem("name"));
       console.log("formData create.");
 
       const request = new XMLHttpRequest();

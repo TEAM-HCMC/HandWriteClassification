@@ -11,6 +11,7 @@ import java.util.Map;
 public class ShellUtil {
     private static final String BASH = "/bin/bash";
     private static final String RUN = "-c";
+    private static final String FAIL = "FAIL TO PRCESS.";
 
     public static Map execCommand(String... str) {
         Map<Integer, String> map = new HashMap<>();
@@ -87,5 +88,11 @@ public class ShellUtil {
         callCmd.add(BASH);
         callCmd.add(RUN);
         return callCmd;
+    }
+
+    public static Map getFailResult() {
+        Map<Integer, String> result = new HashMap<>();
+        result.put(0, FAIL);
+        return result;
     }
 }
