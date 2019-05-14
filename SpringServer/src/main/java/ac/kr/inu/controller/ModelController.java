@@ -39,7 +39,7 @@ public class ModelController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/learn/watch")
+    @GetMapping("/train")
     public ResponseEntity<String> watchLearning(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
         Map result = modelService.watchLearning(accountId);

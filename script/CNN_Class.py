@@ -28,24 +28,32 @@ class cnn:
         pass
     @staticmethod
     def conv(convnet):
-        convnet = conv_2d(convnet, 32, 5, activation='relu')
-        convnet = max_pool_2d(convnet, 5)
+        convnet = conv_2d(convnet, 32, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
 
-        convnet = conv_2d(convnet, 64, 5, activation='relu')
-        convnet = max_pool_2d(convnet, 5)
+        convnet = conv_2d(convnet, 64, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
 
-        convnet = conv_2d(convnet, 128, 5, activation='relu')
-        convnet = max_pool_2d(convnet, 5)
+        convnet = conv_2d(convnet, 128,10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
 
-        convnet = conv_2d(convnet, 64, 5, activation='relu')
-        convnet = max_pool_2d(convnet, 5)
+        convnet = conv_2d(convnet, 256, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
 
-        convnet = conv_2d(convnet, 32, 5, activation='relu')
-        convnet = max_pool_2d(convnet, 5)
+        convnet = conv_2d(convnet, 128, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
 
-        convnet = fully_connected(convnet, 1024, activation='relu')
+        convnet = conv_2d(convnet, 64, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
+
+        convnet = conv_2d(convnet, 32, 10, activation='relu')
+        convnet = max_pool_2d(convnet, 10)
+
+        convnet = fully_connected(convnet, 512, activation='relu')
         convnet = dropout(convnet, 0.8)
-
+        
+        convnet = fully_connected(convnet, 512, activation='relu')
+        convnet = dropout(convnet, 0.8)
         convnet = fully_connected(convnet, 2, activation='softmax')
         return convnet
     def load_model(self):
@@ -58,14 +66,20 @@ class cnn:
         true_data = np.load(TRAIN_DIR + name+'.npy')
         true_list = true_data.tolist()
         #print(true_data)
+        f=0
+        false_data = np.zeros((1,100,100,1))
         for npy in tqdm(os.listdir(TRAIN_DIR + 'train/')):
-            print(npy)
             path = os.path.join(TRAIN_DIR+'train/',npy)
             if path != TRAIN_DIR+name+'.npy' :
-                temp = np.load(TRAIN_DIR+'train/'+npy)
-                print('temp : ', temp[1])
-                false_data=temp
-                print('false_data : ',false_data[1]) 
+                if f==0 :
+                    false_data = np.load(TRAIN_DIR+'train/'+npy)
+                    f = 1
+                else :
+                    temp = np.load(TRAIN_DIR+'train/'+npy)
+                    false_data=np.vstack((false_data,temp))
+                #print('temp : ', temp[1])
+
+                #print('false_data : ',false_data[1]) 
         shuffle(false_data)
         #false_data = false_data[:length]
         #print('true_data : ',true_data[0])
@@ -86,7 +100,6 @@ class cnn:
         data = self.train_data_set(name)
         leng = len(data)
         train = data[:-round(leng * 0.3)]  # 70% <- 트레이닝 데이터
-        print("train : ",train)
         test = data[-round(leng * 0.3):]  # 30% <- 테스트 데이터
         cnt=0;
         try: 
@@ -94,20 +107,18 @@ class cnn:
             #print('Y : \n', Y)
             X = np.array([i[0] for i in train]).reshape(-1, IMG_SIZE, IMG_SIZE, 1)  # training data
         except Exception as err:
-            print("aa:",err)
-            #print(train[n])
+            print('0')
             #train.remove(i) 
         print(len(data), "  ", len(train), "  ", len(test))
         try:
             test_x = np.array([i[0] for i in test]).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # test data
             test_y = [i[1] for i in test]  # test label
         except Exception as err:
-            print("aa:",err)
-            #print(test[n])
+            print('0')
             #test.remove(i)
         print(len(X))
         print(len(Y))
         self.model.fit({'input': X}, {'targets': Y}, n_epoch=epoch,
                        validation_set=({'input': test_x}, {'targets': test_y}),
-                       snapshot_step=500,show_metric=True, run_id=MODEL_NAME)
+                       snapshot_step=100,show_metric=True, run_id=MODEL_NAME)
         self.model.save(MODEL_DIR+MODEL_NAME)

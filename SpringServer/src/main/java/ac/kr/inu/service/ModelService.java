@@ -1,25 +1,22 @@
 package ac.kr.inu.service;
 
-import ac.kr.inu.domain.Account;
 import ac.kr.inu.repository.AccountRepository;
 import ac.kr.inu.util.ShellUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.NoSuchElementException;
+
+import static ac.kr.inu.util.DirInfo.TRAIN;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ModelService {
 
-    private final static String TRAIN = "train/";
     private final static String COMPARE = "compare/";
-    private static Logger logger = LoggerFactory.getLogger(ModelService.class);
 
     private final AccountRepository accountRepository;
 

@@ -1,10 +1,10 @@
 package ac.kr.inu.service;
 
-import ac.kr.inu.controller.ImageController;
 import ac.kr.inu.domain.Account;
 import ac.kr.inu.domain.AccountImg;
 import ac.kr.inu.repository.AccountImgRepository;
 import ac.kr.inu.repository.AccountRepository;
+import ac.kr.inu.util.DirInfo;
 import ac.kr.inu.util.FileSaveUtil;
 import ac.kr.inu.util.ShellUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+
+import static ac.kr.inu.util.DirInfo.DEFAULT_SRC_DIR;
 
 
 @Service
@@ -38,9 +40,9 @@ public class ImageService {
         Account account = accountRepository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
 
-        Long subNumber = getImgSubNumber(account);
         String sub = "";
-        if (subDir.equals(ImageController.TRAIN)) {
+        if (subDir.equals(DirInfo.TRAIN)) {
+            Long subNumber = getImgSubNumber(account);
             sub = "_" + subNumber;
         }
         String name = account.getName() + sub;
@@ -56,13 +58,22 @@ public class ImageService {
         }
     }
 
-    public Map contourImage(String url) {
-        String[] callCmd = ShellUtil.getBashCmd("sh ../script/contour.sh ", url);
+    public Map contourImage(String subDir, Long id) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
+        String initial = account.getName();
+        String trainPath = DEFAULT_SRC_DIR + subDir + initial;
+
+        String[] callCmd = getContourCallCmd(trainPath, subDir);
         Map map = ShellUtil.execCommand(callCmd);
         if (isSuccess(map)) {
             return map;
         }
         return ShellUtil.getFailResult();
+    }
+
+    private String[] getContourCallCmd(String path, String subDir) {
+        return ShellUtil.getBashCmd("sh ../script/contour.sh ", path, subDir);
     }
 
     private boolean isSuccess(Map map) {
@@ -76,5 +87,14 @@ public class ImageService {
                 .max()
                 .orElse(0) + 1;
     }
+
+//    public Map contourImage(String url) {
+//        String[] callCmd = ShellUtil.getBashCmd("sh ../script/contour.sh ", url);
+//        Map map = ShellUtil.execCommand(callCmd);
+//        if (isSuccess(map)) {
+//            return map;
+//        }
+//        return ShellUtil.getFailResult();
+//    }
 
 }

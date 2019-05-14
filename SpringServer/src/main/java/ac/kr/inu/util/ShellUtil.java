@@ -12,6 +12,8 @@ public class ShellUtil {
     private static final String BASH = "/bin/bash";
     private static final String RUN = "-c";
     private static final String FAIL = "FAIL TO PRCESS.";
+    private static final String NO_PARAMETER = "";
+    private static final String BLANK = " ";
 
     public static Map execCommand(String... str) {
         Map<Integer, String> map = new HashMap<>();
@@ -74,12 +76,20 @@ public class ShellUtil {
     }
 
     public static String[] getBashCmd(final String shell) {
-        return getBashCmd(shell, "");
+        return getBashCmd(shell, NO_PARAMETER);
     }
 
-    public static String[] getBashCmd(final String shell, final String parameter) {
+    public static String[] getBashCmd(final String shell, final String... parameter) {
         List<String> callCmd = getBasicCmd();
-        callCmd.add(shell + parameter);
+        StringBuilder command = new StringBuilder();
+        command.append(shell)
+                .append(BLANK);
+        for (int i = 0; i < parameter.length; i++) {
+            command.append(parameter[i])
+                    .append(BLANK);
+        }
+
+        callCmd.add(command.toString());
         return callCmd.toArray(new String[0]);
     }
 
