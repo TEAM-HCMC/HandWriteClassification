@@ -8,9 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static ac.kr.inu.util.DirInfo.DEFAULT_DST_DIR;
-import static ac.kr.inu.util.DirInfo.DEFAULT_SRC_DIR;
-import static ac.kr.inu.util.DirInfo.DOT;
+import static ac.kr.inu.util.DirInfo.*;
 
 public class FileSaveUtil {
 

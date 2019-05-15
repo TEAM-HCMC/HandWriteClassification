@@ -37,15 +37,15 @@ public class AccountImgRepositoryTest {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    @Test
-    public void 최대값_불러오기() {
-        List<AccountImg> accountImgs = accountImgRepository.findByAccount(pci);
-        accountImgs.stream()
-                .forEach(accountImg -> assertThat(accountImg.getAccount().getEmail()).isEqualTo("pci2676"));
-        Long max = accountImgs.stream()
-                .mapToLong(AccountImg::getId)
-                .max()
-                .orElse(1);
-        System.out.println(max);
-    }
+//    @Test
+//    public void 최대값_불러오기() {
+//        List<AccountImg> accountImgs = accountImgRepository.findByAccount(pci);
+//        accountImgs.stream()
+//                .forEach(accountImg -> assertThat(accountImg.getAccount().getEmail()).isEqualTo("pci2676"));
+//        Long max = accountImgs.stream()
+//                .mapToLong(AccountImg::getId)
+//                .max()
+//                .orElse(1);
+//        System.out.println(max);
+//    }
 }

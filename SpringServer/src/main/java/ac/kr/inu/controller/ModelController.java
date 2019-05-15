@@ -1,5 +1,6 @@
 package ac.kr.inu.controller;
 
+import ac.kr.inu.dto.compare.CompareResultResDto;
 import ac.kr.inu.service.ModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ModelController {
         this.modelService = modelService;
     }
 
-    @PostMapping("/learn")
+    @PostMapping("/train")
     public ResponseEntity<Map> trainModel(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
@@ -42,16 +43,15 @@ public class ModelController {
     @GetMapping("/train")
     public ResponseEntity<String> watchLearning(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
-        Map result = modelService.watchLearning(accountId);
+        Map result = modelService.watchTraining(accountId);
 
         return ResponseEntity.ok("");
     }
 
     @GetMapping("/compare")
-    public ResponseEntity<Map> getCompareResult(@ApiIgnore Authentication auth) {
+    public ResponseEntity<CompareResultResDto> getCompareResult(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
-        Map result = modelService.getCompareResult(accountId);
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(modelService.getCompareResult(accountId));
     }
 }

@@ -34,14 +34,14 @@ public class ShellUtil {
         }
 
         String line;
-        StringBuilder stringBuilder = new StringBuilder();
+//        StringBuilder stringBuilder = new StringBuilder();
 
         List<String> echos = new ArrayList<>();
         try {
             if (reader != null) {
                 while ((line = reader.readLine()) != null) {
                     echos.add(line);
-                    stringBuilder.append(line).append("\n");
+//                    stringBuilder.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
@@ -64,13 +64,13 @@ public class ShellUtil {
             }
         }
 
-        try {
-            map.put(1, stringBuilder.toString());
-        } catch (StringIndexOutOfBoundsException e) {
-            if (stringBuilder.toString().length() == 0) {
-                return map;
-            }
-        }
+//        try {
+//            map.put(1, stringBuilder.toString());
+//        } catch (StringIndexOutOfBoundsException e) {
+//            if (stringBuilder.toString().length() == 0) {
+//                return map;
+//            }
+//        }
 
         return map;
     }

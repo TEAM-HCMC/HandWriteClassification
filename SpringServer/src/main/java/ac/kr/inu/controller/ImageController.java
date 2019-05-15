@@ -34,23 +34,6 @@ public class ImageController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("")
-    public ResponseEntity<Boolean> getImageList() {
-        //TODO
-        //입력한 이미지 목록 가져오기
-        return null;
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteImage(String fileName, @ApiIgnore Authentication auth) {
-        //TODO
-        //입력한 이미지 삭제하는 기능 추가
-        return ResponseEntity.ok(true);
-    }
-
-    //@RequestPart(value = "image") final MultipartFile file,
-    //        String url = imageService.saveImage(file, accountId, DirInfo.TRAIN);
-    //        Map result = imageService.contourImage(url);
     @PostMapping("/contour/train")
     public ResponseEntity<Map> contourTrainImage(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
@@ -66,6 +49,20 @@ public class ImageController {
         Map result = imageService.contourImage(DirInfo.COMPARE, accountId);
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Boolean> getImageList() {
+        //TODO
+        //입력한 이미지 목록 가져오기
+        return null;
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteImage(String fileName, @ApiIgnore Authentication auth) {
+        //TODO
+        //입력한 이미지 삭제하는 기능 추가
+        return ResponseEntity.ok(true);
     }
 
 }
