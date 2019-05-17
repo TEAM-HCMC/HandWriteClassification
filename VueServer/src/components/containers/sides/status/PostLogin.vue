@@ -17,6 +17,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+const httpAccount = require('../../../../http/account');
 
 export default {
   computed: mapGetters({
@@ -26,9 +27,16 @@ export default {
 
   data(){
     return {
-      email :this.getEmail,
-      name :this.getName
+      email :null,
+      name :null,
     }
+  },
+
+  created(){
+      httpAccount.getAccountInfo().then((reqDto)=>{
+        this.email = reqDto.email;
+        this.name = reqDto.name;
+      })
   },
 
   methods: {

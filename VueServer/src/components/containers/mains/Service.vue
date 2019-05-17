@@ -121,6 +121,12 @@ export default {
         };
     },
 
+    created(){
+      if(cookieUtils.getJwt()===null){
+        // this.$router.push("/home");
+      }
+    },
+
     methods: {
         contour(direction) {
                 image.startContour(direction);

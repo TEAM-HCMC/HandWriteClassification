@@ -63,15 +63,6 @@ export default {
     getName:'getName'
   }),
 
-  created() {
-    this.$store.commit('loginCheck');
-    // accountStatus.autoCheck();
-    // this.$store.commit('setLoginStatus',{email:"이메일",name:"이름"})
-    console.log(this.getEmail);
-    console.log(this.getName);
-    // this.$store.commit('clearState');
-  },
-
   data() {
     return {
       msg: 'Welcome to Your Vue.js App'
