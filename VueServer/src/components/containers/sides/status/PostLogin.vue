@@ -16,19 +16,24 @@
 </template>
 
 <script>
-const accountStatus = require('../../../../utils/accountStatus');
+import {mapGetters} from 'vuex'
 
 export default {
+  computed: mapGetters({
+    getEmail: 'getEmail',
+    getName: 'getName'
+  }),
+
   data(){
     return {
-      email : localStorage.getItem('email'),
-      name : localStorage.getItem('name')
+      email :this.getEmail,
+      name :this.getName
     }
   },
 
   methods: {
       logout() {
-          accountStatus.logout();
+          this.$store.commit('logout');
       }
   }
 }

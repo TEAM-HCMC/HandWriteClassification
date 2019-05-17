@@ -9,7 +9,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
-const baseUrl = require('../config/testUrl.js');
+const baseUrl = require('../config/serverUrl.js');
 
 var process = function process(fieldName, file, metadata, load, error, progress, abort) {
   console.log("process start");

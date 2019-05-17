@@ -3,16 +3,18 @@ const cookieUtils = require('./cookie')
 var autoCheck = function setLoginStatus() {
   if(cookieUtils.getJwt() !== null){
     const jwt = cookieUtils.getJwt();
-    const email = localStorage.getItem('email');
-    const name = localStorage.getItem('name');
+    // this.$store.dispatch('getAccountInfo');
+    // const email = localStorage.getItem('email');
+    // const name = localStorage.getItem('name');
     console.log("자동로그인 성공");
   }else{
-    localStorage.clear();
+    this.$store.state.commit('clearState');
+
   };
 };
 
 var logout = function logout() {
-    localStorage.clear();
+    this.$store.state.commit('clearState');
     cookieUtils.deleteCookie('jwt');
     console.log("로그아웃");
     location.reload();

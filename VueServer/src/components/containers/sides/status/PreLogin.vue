@@ -30,8 +30,6 @@
 
 <script>
 
-const account = require('../../../../http/account.js');
-
 export default {
     data() {
             return {
@@ -43,9 +41,9 @@ export default {
         },
 
         methods: {
-            login() {
-                account.login(this.accountLoginReqDto);
-            },
+            login(){
+              this.$store.dispatch('login',this.accountLoginReqDto);
+            }
         }
 }
 

@@ -31,6 +31,7 @@ npm install filepond --save
 npm install vue-filepond --save
 npm install filepond-plugin-file-validate-type --save
 npm i filepond-plugin-image-preview --save
+npm install vuex --save
 
 vue init webpack-simple 생성할 루트 디렉토리 이름
 npm install
