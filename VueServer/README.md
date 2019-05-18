@@ -38,3 +38,7 @@ npm install
 ```
 
 using port 7070
+
+
+
+aws s3 정적 웹 호스팅 배포
