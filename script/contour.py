@@ -10,8 +10,8 @@ class contour:
     def __init__(self, basename, filename):
         self.basename = basename
         self.filename = filename
-        self.image = cv2.imread("../originalSource/" + str(self.filename) + ".png", cv2.IMREAD_COLOR)
-        self.img = cv2.imread("../originalSource/" + str(self.filename) + ".png", cv2.IMREAD_GRAYSCALE)
+        self.image = cv2.imread("../originalSource/" + str(self.filename) + ".jpg", cv2.IMREAD_COLOR)
+        self.img = cv2.imread("../originalSource/" + str(self.filename) + ".jpg", cv2.IMREAD_GRAYSCALE)
         self.img_name = filename.split('/')[1]
         self.data = []
 
