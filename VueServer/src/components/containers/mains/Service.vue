@@ -150,10 +150,9 @@ export default {
           this.rate.correct = resDto.correct;
           this.rate.wrong = resDto.wrong;
       });
-      
+
       console.log("비교완료이미지출력");
       image.getComparedImgs().then((imgUrls) => {
-        console.log(imgUrls);
         this.comparedImgs = [];
         imgUrls.forEach((now, idx, array) => {
           this.comparedImgs.push(now.url);
