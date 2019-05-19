@@ -3,12 +3,14 @@ package ac.kr.inu.service;
 import ac.kr.inu.domain.Account;
 import ac.kr.inu.dto.account.AccountInfoResDto;
 import ac.kr.inu.dto.account.AccountSaveReqDto;
+import ac.kr.inu.exception.NoSuchAccountException;
 import ac.kr.inu.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service

@@ -23,7 +23,7 @@ public class AccountContextService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Account account = accountRepository.findByEmail(email)
-                .orElseThrow(() -> new NoSuchAccountException());
+                .orElseThrow(NoSuchAccountException::new);
         return account.toAccountContext();
     }
 

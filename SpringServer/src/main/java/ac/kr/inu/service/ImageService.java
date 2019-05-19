@@ -78,7 +78,7 @@ public class ImageService {
 
     public List<String> getFileNames(Long id) {
         List<AccountImg> accountImgs = accountImgRepository.findByAccount_Id(id);
-        CommonConfig.getList(accountImgs);
+        CommonConfig.getCheckedList(accountImgs);
         return accountImgs.stream()
                 .map(AccountImg::getOriginalName)
                 .collect(Collectors.toList());

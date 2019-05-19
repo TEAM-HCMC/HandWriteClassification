@@ -9,6 +9,7 @@ public class InuApplication {
     public static final String APPLICATION_LOCATIONS = "spring.config.location="
             + "classpath:application.properties,"
             + "classpath:application-dev.properties,"
+            + "classpath:aws.properties,"
             + "./../../prod.properties";
 
     public static void main(String[] args) {

@@ -10,9 +10,8 @@ import java.util.List;
 @Component
 public class CommonConfig {
 
-    @Bean
-    public static List getList(List list) {
-        if (list.isEmpty()) {
+    public static List getCheckedList(List list) {
+        if (list == null) {
             return new ArrayList();
         }
         return list;

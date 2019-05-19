@@ -65,4 +65,11 @@ public class ImageController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping("/compare")
+    public ResponseEntity<Void> getResultImage(@ApiIgnore Authentication auth) {
+        Long accountId = Long.parseLong(auth.getPrincipal().toString());
+
+        return ResponseEntity.ok().build();
+    }
+
 }
