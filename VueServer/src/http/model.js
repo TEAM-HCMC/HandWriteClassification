@@ -1,5 +1,5 @@
 const axios = require('axios');
-const baseUrl = require('../config/testUrl.js');
+const baseUrl = require('../config/serverUrl.js');
 const cookieUtils = require('../utils/cookie.js');
 
 const reqHeader = {
@@ -12,10 +12,10 @@ const reqHeader = {
 var startTrain = function trainStart(initial) {
 
   const reqDto = {
-    'name' : initial,
+    'name': initial,
   };
 
-  axios.post(baseUrl + '/model/learn', reqDto, reqHeader)
+  axios.post(baseUrl + '/model/train', reqDto, reqHeader)
     .then((res) => {
       console.log("모델학습 실행 성공");
     })
@@ -28,7 +28,7 @@ var startTrain = function trainStart(initial) {
 var startCompare = function trainStart(initial) {
 
   const reqDto = {
-    'name' : initial,
+    'name': initial,
   }
 
   axios.post(baseUrl + '/model/compare', reqDto, reqHeader)
@@ -41,5 +41,29 @@ var startCompare = function trainStart(initial) {
 
 }
 
+var getResult = function getResult(callback) {
+
+  var resDto = {
+    'correct':"", 
+    'wrong':""
+  }
+ return new Promise(function(resolve,reject){
+   axios.get(baseUrl + '/model/compare', reqHeader)
+     .then((res) => {
+       console.log(res);
+       resDto.correct=res.data.correctRate;
+       resDto.wrong=res.data.wrongRate;
+       resolve(resDto);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
+ });
+
+}
+
+
+
 module.exports.startTrain = startTrain;
 module.exports.startCompare = startCompare;
+module.exports.getResult = getResult;

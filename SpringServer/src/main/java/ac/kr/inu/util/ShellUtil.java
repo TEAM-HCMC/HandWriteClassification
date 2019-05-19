@@ -12,6 +12,8 @@ public class ShellUtil {
     private static final String BASH = "/bin/bash";
     private static final String RUN = "-c";
     private static final String FAIL = "FAIL TO PRCESS.";
+    private static final String NO_PARAMETER = "";
+    private static final String BLANK = " ";
 
     public static Map execCommand(String... str) {
         Map<Integer, String> map = new HashMap<>();
@@ -32,14 +34,14 @@ public class ShellUtil {
         }
 
         String line;
-        StringBuilder stringBuilder = new StringBuilder();
+//        StringBuilder stringBuilder = new StringBuilder();
 
         List<String> echos = new ArrayList<>();
         try {
             if (reader != null) {
                 while ((line = reader.readLine()) != null) {
                     echos.add(line);
-                    stringBuilder.append(line).append("\n");
+//                    stringBuilder.append(line).append("\n");
                 }
             }
         } catch (IOException e) {
@@ -62,24 +64,32 @@ public class ShellUtil {
             }
         }
 
-        try {
-            map.put(1, stringBuilder.toString());
-        } catch (StringIndexOutOfBoundsException e) {
-            if (stringBuilder.toString().length() == 0) {
-                return map;
-            }
-        }
+//        try {
+//            map.put(1, stringBuilder.toString());
+//        } catch (StringIndexOutOfBoundsException e) {
+//            if (stringBuilder.toString().length() == 0) {
+//                return map;
+//            }
+//        }
 
         return map;
     }
 
     public static String[] getBashCmd(final String shell) {
-        return getBashCmd(shell, "");
+        return getBashCmd(shell, NO_PARAMETER);
     }
 
-    public static String[] getBashCmd(final String shell, final String parameter) {
+    public static String[] getBashCmd(final String shell, final String... parameter) {
         List<String> callCmd = getBasicCmd();
-        callCmd.add(shell + parameter);
+        StringBuilder command = new StringBuilder();
+        command.append(shell)
+                .append(BLANK);
+        for (int i = 0; i < parameter.length; i++) {
+            command.append(parameter[i])
+                    .append(BLANK);
+        }
+
+        callCmd.add(command.toString());
         return callCmd.toArray(new String[0]);
     }
 

@@ -1,6 +1,9 @@
 package ac.kr.inu.controller;
 
+import ac.kr.inu.dto.compare.CompareResultResDto;
 import ac.kr.inu.service.ModelService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,35 +26,35 @@ public class ModelController {
         this.modelService = modelService;
     }
 
-    @PostMapping("/learn")
-    public ResponseEntity<Map> learnModel(@ApiIgnore Authentication auth) {
+    @PostMapping("/train")
+    public ResponseEntity<Map> trainModel(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
-        Map result = modelService.learnModel(accountId);
+        Map result = modelService.trainModel(accountId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/compare")
-    public ResponseEntity<Map> compare(@ApiIgnore Authentication auth) {
+    public ResponseEntity<Map> compareImage(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 
         Map result = modelService.compareModel(accountId);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/learn/watch")
+    @GetMapping("/train")
     public ResponseEntity<String> watchLearning(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
-        Map result = modelService.watchLearning(accountId);
+        Map result = modelService.watchTraining(accountId);
 
         return ResponseEntity.ok("");
     }
 
     @GetMapping("/compare")
-    public ResponseEntity<Map> getResult(@ApiIgnore Authentication auth){
+    public ResponseEntity<CompareResultResDto> getCompareResult(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
-        Map result = modelService.getCompareResult(accountId);
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(modelService.getCompareResult(accountId));
     }
+
 }

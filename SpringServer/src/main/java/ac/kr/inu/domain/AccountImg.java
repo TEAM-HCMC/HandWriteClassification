@@ -11,16 +11,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class AccountImg {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ACCOUNT_IMG_ID")
     private Long id;
+
+    @Column(name = "ORIGINAL_NAME")
+    private String originalName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
 
-    public AccountImg(Account account) {
+    public AccountImg(Account account, String originalName) {
         this.account = account;
+        this.originalName = originalName;
     }
+
 }

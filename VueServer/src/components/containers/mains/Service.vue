@@ -27,7 +27,6 @@
     width: 100%;
     margin-top: 8em;
     margin-bottom: 3em;
-
 }
 
 .model > div {
@@ -35,6 +34,10 @@
     display: inline-block;
     margin-left: 3em;
     margin-right: 3em;
+}
+
+.imgs{
+  margin: 1em;
 }
 
 </style>
@@ -48,8 +51,10 @@
             <span class="description">
             검증 기준 <br>이미지를 업로드
           </span>
-            <file-pond name="/image/contour/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles"
-            />
+            <file-pond name="/image/save/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
+            <div class="contour_train_image">
+                <button v-on:click="contour('train/')">이미지 업로드 완료</button>
+            </div>
         </div>
 
         <div class="input_compare_image">
@@ -57,8 +62,10 @@
                 검증 대상
                 <br>이미지를 업로드
             </div>
-            <file-pond name="/image/contour/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles"
-            />
+            <file-pond name="/image/save/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
+            <div class="contour_train_image">
+                <button v-on:click="contour('compare/')">이미지 업로드 완료</button>
+            </div>
         </div>
     </div>
 
@@ -67,16 +74,29 @@
     <div class="model">
         <div class="train_model">
             <div class="description">
-              모델 학습 시키기
+                모델 학습 시키기
             </div>
             <button v-on:click="train">모델 학습 시작</button>
         </div>
 
         <div class="compare_model">
             <div class="description">
-              필적 검증 하기
+                필적 검증 하기
             </div>
             <button v-on:click="compare">필적 검증 시작</button>
+        </div>
+    </div>
+
+    <div class="result">
+        <button v-on:click="getResult">결과확인</button>
+        <div class="correct">
+            {{rate.correct}}
+        </div>
+        <div class="wrong">
+            {{rate.wrong}}
+        </div>
+        <div class="comparedImgs">
+          <img class="imgs" v-for="comparedImg in comparedImgs" :src="comparedImg" />
         </div>
     </div>
 
@@ -88,26 +108,57 @@
 <script>
 // Import Vue FilePond
 const fileUtils = require('../../../config/filepond');
+const image = require('../../../http/image');
 const model = require('../../../http/model');
 
-const baseUrl = require('../../../config/testUrl.js');
+
+const baseUrl = require('../../../config/serverUrl.js');
 const cookieUtils = require('../../../utils/cookie.js');
 
 export default {
 
   data: function() {
     return {
-      myFiles: []
+      myFiles: [],
+      rate: {
+        'correct': "",
+        'wrong': ""
+      },
+      comparedImgs: [],
     };
   },
 
+  created() {
+    if (cookieUtils.getJwt() === null) {
+      // this.$router.push("/home");
+    }
+  },
+
   methods: {
+    contour(direction) {
+      image.startContour(direction);
+    },
     train() {
       model.startTrain(localStorage.getItem('name'));
     },
 
     compare() {
       model.startCompare(localStorage.getItem('name'));
+    },
+    getResult() {
+      model.getResult().then((resDto) => {
+          this.rate.correct = resDto.correct;
+          this.rate.wrong = resDto.wrong;
+      });
+
+      console.log("비교완료이미지출력");
+      image.getComparedImgs().then((imgUrls) => {
+        this.comparedImgs = [];
+        imgUrls.forEach((now, idx, array) => {
+          this.comparedImgs.push(now.url);
+        });
+      });
+
     },
 
     process(fieldName, file, metadata, load, error, progress, abort) {

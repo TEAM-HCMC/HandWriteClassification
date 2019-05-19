@@ -8,14 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static ac.kr.inu.util.DirInfo.*;
+
 public class FileSaveUtil {
 
     private static Logger log = LoggerFactory.getLogger(FileSaveUtil.class);
-
-    private static String DEFAULT_SRC_DIR = "../originalSource/";
-    private static String DEFAULT_DST_DIR = "../destination/";
-    private static String DOT = ".";
-
 
     /**
      * @param uploadFile 업로드 받은 파일

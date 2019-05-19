@@ -1,16 +1,40 @@
-#!/bin/bash
+#  ./contour.sh ../originalSource/train/pci train/
 
+base=`basename $1`
+echo "path is $1"
+echo "based on $base"
 
-echo This is $1
+path=$2
 
-#
+echo "                    "
+echo "####################"
+echo " NOW CONTOURING"
+echo "####################"
+echo "                    "
 
-#파이썬 파일로 특정 디렉토리의 파일들에 해당하는 모델을 생성하는 쉘스크립트
-python3 ../script/contour.py $1
+for entry in $1_*
+do
+ echo "now process $entry"
+ fileName=`basename -s ".${entry##*.}" "$entry"`
+ echo $base $fileName
+ python3 ../script/contour.py $path$base $path$fileName
+ echo "done"
+done
+echo "                    "
+echo "####################"
+echo " CONTOURING END"
+echo "####################"
+echo "                    "
 
-echo FROM $1
-echo 오브젝트 추출 완료.
+echo "                    "
+echo "####################"
+echo " NOW CONVERTING"
+echo "####################"
+echo "                    "
 
-python3 ../script/nonTextClassification.py $1
-#Todo 오브젝트 분류 모델 거치기
-
+python3 ../script/nonTextClassification.py $path$base
+echo "                    "
+echo "####################"
+echo " CONVERTING END"
+echo "####################"
+echo "                    "
