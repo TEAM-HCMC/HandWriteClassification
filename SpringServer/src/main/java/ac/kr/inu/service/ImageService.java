@@ -3,10 +3,13 @@ package ac.kr.inu.service;
 import ac.kr.inu.config.CommonConfig;
 import ac.kr.inu.domain.Account;
 import ac.kr.inu.domain.AccountImg;
+import ac.kr.inu.domain.ComparedImg;
+import ac.kr.inu.dto.compare.ImgUrlResDto;
 import ac.kr.inu.exception.FileNotSaveException;
 import ac.kr.inu.exception.NoSuchAccountException;
 import ac.kr.inu.repository.AccountImgRepository;
 import ac.kr.inu.repository.AccountRepository;
+import ac.kr.inu.repository.ComparedImgRepository;
 import ac.kr.inu.util.FileSaveUtil;
 import ac.kr.inu.util.ShellUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +36,7 @@ public class ImageService {
 
     private final AccountRepository accountRepository;
     private final AccountImgRepository accountImgRepository;
+    private final ComparedImgRepository comparedImgRepository;
 
     /**
      * @param file   : 입력받은 파일을 originalSource 폴더에 저장합니다.
@@ -74,6 +78,15 @@ public class ImageService {
             return map;
         }
         return ShellUtil.getFailResult();
+    }
+
+    public List<ImgUrlResDto> getComparedImgsUrl(Long id) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(NoSuchAccountException::new);
+        List<ComparedImg> comparedImgs = CommonConfig.getCheckedList(comparedImgRepository.findByAccount(account));
+        return comparedImgs.stream()
+                .map(img -> new ImgUrlResDto(img))
+                .collect(Collectors.toList());
     }
 
     public List<String> getFileNames(Long id) {

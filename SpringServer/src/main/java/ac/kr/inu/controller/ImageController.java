@@ -1,13 +1,17 @@
 package ac.kr.inu.controller;
 
+import ac.kr.inu.dto.compare.ImgUrlResDto;
 import ac.kr.inu.service.ImageService;
 import ac.kr.inu.util.DirInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -66,10 +70,10 @@ public class ImageController {
     }
 
     @GetMapping("/compare")
-    public ResponseEntity<Void> getResultImage(@ApiIgnore Authentication auth) {
+    @ApiImplicitParams({@ApiImplicitParam(name = "jwt", value = "JWT Token", required = true, dataType = "string", paramType = "header")})
+    public ResponseEntity<List<ImgUrlResDto>> getResultImage(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(imageService.getComparedImgsUrl(accountId));
     }
 
 }

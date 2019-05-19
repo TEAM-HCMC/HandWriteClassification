@@ -21,4 +21,23 @@ var startContour = function contour(direction) {
 
 };
 
+var getComparedImgs = function getComparedImgs() {
+  const path = '/image/compare'
+
+  return new Promise((resolve, reject)=>{
+    axios.get(baseUrl+path,reqHeader)
+    .then((res=>{
+      console.log(res);
+      resolve(res.data);
+    }))
+    .catch((error) => {
+      console.log(error);
+    });
+  });
+
+
+
+}
+
 module.exports.startContour=startContour;
+module.exports.getComparedImgs=getComparedImgs;

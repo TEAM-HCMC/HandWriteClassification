@@ -56,4 +56,5 @@ public class ModelController {
 
         return ResponseEntity.ok(modelService.getCompareResult(accountId));
     }
+
 }

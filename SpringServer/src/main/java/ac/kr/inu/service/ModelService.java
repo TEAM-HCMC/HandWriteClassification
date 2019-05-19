@@ -1,7 +1,11 @@
 package ac.kr.inu.service;
 
+import ac.kr.inu.domain.Account;
+import ac.kr.inu.domain.ComparedImg;
 import ac.kr.inu.dto.compare.CompareResultResDto;
+import ac.kr.inu.exception.NoSuchAccountException;
 import ac.kr.inu.repository.AccountRepository;
+import ac.kr.inu.repository.ComparedImgRepository;
 import ac.kr.inu.util.DirInfo;
 import ac.kr.inu.util.S3Uploader;
 import ac.kr.inu.util.ShellUtil;
@@ -16,6 +20,7 @@ import java.util.NoSuchElementException;
 
 import static ac.kr.inu.service.ShellInfo.*;
 import static ac.kr.inu.util.DirInfo.COMPARE;
+import static ac.kr.inu.util.DirInfo.S3_RESULT;
 import static ac.kr.inu.util.DirInfo.TRAIN;
 
 @Slf4j
@@ -23,7 +28,10 @@ import static ac.kr.inu.util.DirInfo.TRAIN;
 @RequiredArgsConstructor
 public class ModelService {
 
+    private static final String UPLOAD_S3_REG = "([0-9]*)\\..*";
+
     private final AccountRepository accountRepository;
+    private final ComparedImgRepository comparedImgRepository;
     private final S3Uploader s3Uploader;
 
     public Map trainModel(Long accountId) {
@@ -34,20 +42,39 @@ public class ModelService {
     }
 
     public Map compareModel(Long accountId) {
-        String name = getAccountName(accountId);
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(NoSuchAccountException::new);
+        String name = account.getName();
+
         String[] callCmd = ShellUtil.getBashCmd(COMPARE_SHELL, COMPARE + name);
         Map map = ShellUtil.execCommand(callCmd);
-        uploadComareImageResult(name);
+
+        removeAlreadyComparedImages(account);
+        uploadCompareImageResult(account);
+
         return map;
     }
 
-    public void uploadComareImageResult(String name) {
+    private void removeAlreadyComparedImages(Account account) {
+        comparedImgRepository.deleteAllByAccount(account);
+    }
+
+    public void uploadCompareImageResult(Account account) {
         String outputPath = DirInfo.OUTPUT;
-        String outputImageReg = name + "([0-9]*)\\..*";
+        String name = account.getName();
+        String outputImageReg = name + UPLOAD_S3_REG;
+
         File dirFile = new File(outputPath);
         Arrays.stream(dirFile.listFiles())
                 .filter(file -> file.getName().matches(outputImageReg))
-                .forEach(file -> s3Uploader.upload(file,"result/"+name));
+                .forEach(file -> {
+                    String url = s3Uploader.upload(file, S3_RESULT + name);
+                    saveOnDatabase(url, account);
+                });
+    }
+
+    private void saveOnDatabase(String url, Account account) {
+        comparedImgRepository.save(new ComparedImg(url, account));
     }
 
 

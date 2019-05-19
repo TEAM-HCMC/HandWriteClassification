@@ -6,5 +6,6 @@ public class DirInfo {
     public static final String DEFAULT_SRC_DIR = "../originalSource/";
     public static final String DEFAULT_DST_DIR = "../destination/";
     public static final String OUTPUT = "../output/";
+    public static final String S3_RESULT = "result/";
     public static final String DOT = ".";
 }
