@@ -37,7 +37,6 @@ a {
     <Header></Header>
     <Navigation></Navigation>
     <Container></Container>
-    <Footer></Footer>
 
   </div>
 </div>

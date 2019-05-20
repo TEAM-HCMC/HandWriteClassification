@@ -40,6 +40,30 @@
   margin: 1em;
 }
 
+ul{
+  list-style-type: none;
+  padding-left: 0px;
+  margin-top: 0;
+  text-align: left;
+}
+
+li{
+  float: left;
+  display: flex;
+  padding: 0 0.9rem;
+  background: white;
+  border-radius: 5px;
+}
+
+.list-enter-active, .list-leave-active{
+  transition: all 1s;
+}
+
+.list-enter, .list-leave-to{
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 </style>
 
 <template lang="html">
@@ -95,18 +119,30 @@
         <div class="wrong">
             {{rate.wrong}}
         </div>
-        <div class="comparedImgs">
-          <img class="imgs" v-for="comparedImg in comparedImgs" :src="comparedImg" />
-        </div>
+        <transition-group name="list" tag="ul">
+          <li v-for="comparedImg in comparedImgs" :key="comparedImg">
+              <img class="imgs" :src="comparedImg" />
+          </li>
+        </transition-group>
     </div>
 
+    <div class="modal">
+      <modal v-if="showModal" v-on:click="backToHome">
+      <h3 slot="header">경고</h3>
+      <span slot="body">로그인 후 이용할 수 있습니다.</span>
+      <span slot="footer" v-on:click="backToHome">
+        로그인 하십시오.
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
+    </div>
 
 </div>
 
 </template>
 
 <script>
-// Import Vue FilePond
+import modal from '../../../utils/Modal.vue'
 const fileUtils = require('../../../config/filepond');
 const image = require('../../../http/image');
 const model = require('../../../http/model');
@@ -125,16 +161,21 @@ export default {
         'wrong': ""
       },
       comparedImgs: [],
+      showModal: false,
     };
   },
 
   created() {
     if (cookieUtils.getJwt() === null) {
-      // this.$router.push("/home");
+      this.showModal = true;
     }
   },
 
   methods: {
+    backToHome() {
+      this.showModal = false;
+      this.$router.push("/");
+    },
     contour(direction) {
       image.startContour(direction);
     },
@@ -146,19 +187,21 @@ export default {
       model.startCompare(localStorage.getItem('name'));
     },
     getResult() {
-      model.getResult().then((resDto) => {
+      if (this.comparedImgs.length===0) {
+        model.getResult().then((resDto) => {
           this.rate.correct = resDto.correct;
           this.rate.wrong = resDto.wrong;
-      });
-
-      console.log("비교완료이미지출력");
-      image.getComparedImgs().then((imgUrls) => {
-        this.comparedImgs = [];
-        imgUrls.forEach((now, idx, array) => {
-          this.comparedImgs.push(now.url);
         });
-      });
 
+        image.getComparedImgs().then((imgUrls) => {
+          this.comparedImgs = [];
+          imgUrls.forEach((now, idx, array) => {
+            this.comparedImgs.push(now.url);
+          });
+        });
+      } else {
+        this.comparedImgs = [];
+      }
     },
 
     process(fieldName, file, metadata, load, error, progress, abort) {
@@ -315,8 +358,9 @@ export default {
     }
   },
   components: {
-    fileUtils
-  }
+    fileUtils,
+    modal
+  },
 
 }
 </script>
