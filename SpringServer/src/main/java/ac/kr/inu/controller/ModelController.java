@@ -51,6 +51,7 @@ public class ModelController {
     }
 
     @GetMapping("/compare")
+    @ApiImplicitParams({@ApiImplicitParam(name = "jwt", value = "JWT Token", required = true, dataType = "string", paramType = "header")})
     public ResponseEntity<CompareResultResDto> getCompareResult(@ApiIgnore Authentication auth) {
         Long accountId = Long.parseLong(auth.getPrincipal().toString());
 

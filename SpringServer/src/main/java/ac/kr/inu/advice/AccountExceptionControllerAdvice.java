@@ -17,7 +17,7 @@ public class AccountExceptionControllerAdvice {
     @ExceptionHandler(NoSuchAccountException.class)
     public ResponseEntity<ExceptionResponseDto> noAccountExists(NoSuchAccountException e){
         log.info("[NoSuchAccountException] {}",e.getMessage());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ExceptionResponseDto.builder()
                         .field(FIELD)
                         .message(e.getMessage())
