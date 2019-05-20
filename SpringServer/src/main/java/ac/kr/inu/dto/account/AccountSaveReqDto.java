@@ -1,6 +1,7 @@
 package ac.kr.inu.dto.account;
 
 import ac.kr.inu.domain.Account;
+import ac.kr.inu.domain.Model;
 import lombok.Getter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -10,11 +11,15 @@ public class AccountSaveReqDto {
     private String password;
     private String name;
 
-    public Account toEntity(PasswordEncoder passwordEncoder) {
+    public Account toAccountEntity(PasswordEncoder passwordEncoder, Model model) {
         return Account.builder()
                 .email(this.email)
-                .name(this.name)
+                .model(model)
                 .password(passwordEncoder.encode(this.password))
                 .build();
+    }
+
+    public Model toModelEntity(){
+        return new Model(this);
     }
 }

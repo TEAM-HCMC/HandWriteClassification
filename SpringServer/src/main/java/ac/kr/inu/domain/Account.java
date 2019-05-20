@@ -28,9 +28,9 @@ public class Account {
     @NotNull
     private String password;
 
-    @Column(name = "ACCOUNT_NAME")
-    @NotNull
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "MODEL_ID")
+    private Model model;
 
     @Column(name = "ACCOUNT_ROLE")
     @NotNull
@@ -38,11 +38,15 @@ public class Account {
     private AccountRole accountRole;
 
     @Builder
-    public Account(@NotNull String email, @NotNull String password, @NotNull String name) {
+    public Account(@NotNull String email, @NotNull String password, Model model) {
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.model = model;
         this.accountRole = AccountRole.USER;
+    }
+
+    public String getName(){
+        return model.getName();
     }
 
     public AccountContext toAccountContext() {
