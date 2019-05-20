@@ -10,14 +10,15 @@ var signUp = function signUp(reqDto) {
       'Content-Type': 'application/json',
     }
   };
-
-  axios.post(baseUrl + '/account/signup', reqDto, reqHeader)
-    .then((res) => {
-      console.log("회원가입 성공");
-    })
-    .catch((err) => {
-      console.log("회원가입 실패");
-    });
+  return new Promise((resolve,reject)=>{
+    axios.post(baseUrl + '/account/signup', reqDto, reqHeader)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject();
+      });
+  });
 
 }
 // SIGN UP END
