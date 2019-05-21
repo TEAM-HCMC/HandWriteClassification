@@ -15,9 +15,10 @@ var signUp = function signUp(reqDto) {
       .then((res) => {
         resolve(res.data);
       })
-      .catch((err) => {
-        reject();
+      .catch((err)=>{
+        reject(err.response.data);
       });
+
   });
 
 }

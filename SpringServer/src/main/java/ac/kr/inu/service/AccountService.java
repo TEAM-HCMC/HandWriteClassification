@@ -4,6 +4,8 @@ import ac.kr.inu.domain.Account;
 import ac.kr.inu.domain.Model;
 import ac.kr.inu.dto.account.AccountInfoResDto;
 import ac.kr.inu.dto.account.AccountSaveReqDto;
+import ac.kr.inu.exception.AlreadyEmailExistException;
+import ac.kr.inu.exception.AlreadyNameExistException;
 import ac.kr.inu.repository.AccountRepository;
 import ac.kr.inu.repository.ModelRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +36,13 @@ public class AccountService {
 
     private void checkAlreadyName(AccountSaveReqDto accountSaveReqDto) {
         if (modelRepository.findByName(accountSaveReqDto.getName()).isPresent()) {
-            throw new IllegalArgumentException("사용할 수 없는 이름입니다.");
+            throw new AlreadyNameExistException();
         }
     }
 
     private void checkAlreadyEmail(AccountSaveReqDto accountSaveReqDto) {
         if (accountRepository.findByEmail(accountSaveReqDto.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("이미 계정이 존재합니다.");
+            throw new AlreadyEmailExistException();
         }
     }
 

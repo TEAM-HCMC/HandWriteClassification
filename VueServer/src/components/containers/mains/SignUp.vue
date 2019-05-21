@@ -75,9 +75,9 @@ export default {
             this.showModal = true;
           }
         })
-        .catch(() => {
+        .catch((data) => {
           this.headMessage = "회원가입 실패";
-          this.bodyMessage = "회원가입에 실패하였습니다.";
+          this.bodyMessage = data.message;
           this.tailMessage = "확인";
           this.isSuccess=false;
           this.showModal = true;
