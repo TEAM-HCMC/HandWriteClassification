@@ -1,5 +1,6 @@
 package ac.kr.inu.security.ajax.provider;
 
+import ac.kr.inu.exception.BadPasswordException;
 import ac.kr.inu.security.context.AccountContext;
 import ac.kr.inu.security.context.AccountContextService;
 import ac.kr.inu.security.token.PostAuthorizationToken;
@@ -35,7 +36,7 @@ public class AjaxLoginAuthenticationProvider implements AuthenticationProvider {
             return PostAuthorizationToken.getTokenFromAccountContext((AccountContext) userDetails);
         }
 
-        throw new BadCredentialsException("인증정보가 올바르지 않습니다.");
+        throw new BadPasswordException();
     }
 
     /**

@@ -143,10 +143,10 @@ li{
 
 <script>
 import modal from '../../../utils/Modal.vue'
+
 const fileUtils = require('../../../config/filepond');
 const image = require('../../../http/image');
 const model = require('../../../http/model');
-
 
 const baseUrl = require('../../../config/serverUrl.js');
 const cookieUtils = require('../../../utils/cookie.js');
@@ -172,13 +172,16 @@ export default {
   },
 
   methods: {
+
     backToHome() {
       this.showModal = false;
       this.$router.push("/");
     },
+
     contour(direction) {
       image.startContour(direction);
     },
+
     train() {
       model.startTrain(localStorage.getItem('name'));
     },
@@ -186,6 +189,7 @@ export default {
     compare() {
       model.startCompare(localStorage.getItem('name'));
     },
+    
     getResult() {
       if (this.comparedImgs.length===0) {
         model.getResult().then((resDto) => {
