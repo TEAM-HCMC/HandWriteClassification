@@ -76,7 +76,7 @@ li{
             검증 기준 <br>이미지를 업로드
           </span>
             <file-pond name="/image/save/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
-            <div class="contour_train_image">
+            <div class="showStep2" >
                 <button v-on:click="contour('train/')">이미지 업로드 완료</button>
             </div>
         </div>
@@ -87,7 +87,7 @@ li{
                 <br>이미지를 업로드
             </div>
             <file-pond name="/image/save/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
-            <div class="contour_train_image">
+            <div class="showStep4">
                 <button v-on:click="contour('compare/')">이미지 업로드 완료</button>
             </div>
         </div>
@@ -162,6 +162,11 @@ export default {
       },
       comparedImgs: [],
       showModal: false,
+
+      showStep1:true,
+      showStep2:false,
+      showStep3:false,
+      showStep4:false,
     };
   },
 
@@ -189,7 +194,7 @@ export default {
     compare() {
       model.startCompare(localStorage.getItem('name'));
     },
-    
+
     getResult() {
       if (this.comparedImgs.length===0) {
         model.getResult().then((resDto) => {

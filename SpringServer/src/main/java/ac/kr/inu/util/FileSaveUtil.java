@@ -25,6 +25,8 @@ public class FileSaveUtil {
         String origName = uploadFile.getOriginalFilename();
         String ext = FilenameUtils.getExtension(origName);
 
+        ext = convertExtention(ext);
+
         String srcUrl;
         try {
 
@@ -45,6 +47,13 @@ public class FileSaveUtil {
             srcUrl = null;
         }
         return srcUrl;
+    }
+
+    private String convertExtention(String ext) {
+        if (!ext.equals("jpg")) {
+            return "jpg";
+        }
+        return ext;
     }
 
 }
