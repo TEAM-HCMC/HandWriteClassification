@@ -1,22 +1,31 @@
+<style lang="css" scoped>
+
+
+
+</style>
+
 <template lang="html">
 
-  <div class="login_form">
+<div class="login_form">
 
     <div class="account_id">
-        ID : {{email}}
+        아이디 : {{email}}
 
     </div>
     <div class="account_name">
-        NAME : {{name}}
+        모델 이름 : {{name}}
     </div>
-    <button  v-on:click="logout">로그아웃</button>
+    <button v-on:click="logout">로그아웃</button>
 
-  </div>
+</div>
 
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {
+  mapGetters
+}
+from 'vuex'
 const httpAccount = require('../../../../http/account');
 
 export default {
@@ -25,27 +34,24 @@ export default {
     getName: 'getName'
   }),
 
-  data(){
+  data() {
     return {
-      email :null,
-      name :null,
+      email: null,
+      name: null,
     }
   },
 
-  created(){
-      httpAccount.getAccountInfo().then((reqDto)=>{
-        this.email = reqDto.email;
-        this.name = reqDto.name;
-      })
+  created() {
+    httpAccount.getAccountInfo().then((reqDto) => {
+      this.email = reqDto.email;
+      this.name = reqDto.name;
+    })
   },
 
   methods: {
-      logout() {
-          this.$store.commit('logout');
-      }
+    logout() {
+      this.$store.commit('logout');
+    }
   }
 }
 </script>
-
-<style lang="css" scoped>
-</style>

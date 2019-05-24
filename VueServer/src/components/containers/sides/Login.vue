@@ -1,12 +1,17 @@
-<style lang="css" scoped>
+<style lang="css">
 
-
+.side{
+  margin-top: 2em;
+}
 
 </style>
 
 <template lang="html">
 
-<Status></Status>
+<div class="side">
+  <Status></Status>
+</div>
+
 
 </template>
 

@@ -1,6 +1,8 @@
 <style lang="css" scoped>
 
-
+.about{
+  padding-top: 20vh;
+}
 
 </style>
 

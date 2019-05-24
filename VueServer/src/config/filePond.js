@@ -2,12 +2,12 @@ import vueFilePond from 'vue-filepond';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 // Import image preview plugin styles
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 // Import image preview and file type validation plugins
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 const baseUrl = require('../config/serverUrl.js');
 
@@ -167,6 +167,6 @@ var revert = function revert(uniqueFileId, load, error) {
 export default {
   vueFilePond,
   FilePondPluginFileValidateType,
-  FilePondPluginImagePreview,
+  // FilePondPluginImagePreview,
   FilePond,
 }

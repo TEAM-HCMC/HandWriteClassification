@@ -8,15 +8,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@ActiveProfiles("dev")
+@TestPropertySource("classpath:aws.properties")
+@ActiveProfiles({"dev"})
 @RunWith(SpringRunner.class)
 public class AccountImgRepositoryTest {
 
@@ -35,5 +38,12 @@ public class AccountImgRepositoryTest {
                 .orElseThrow(NoSuchElementException::new);
         cip = accountRepository.findByEmail("cip0508")
                 .orElseThrow(NoSuchElementException::new);
+    }
+
+    @Test
+    public void 계정찾기() {
+        List<String> emails = accountRepository.findAll().stream()
+                .map(Account::getEmail)
+                .collect(Collectors.toList());
     }
 }
