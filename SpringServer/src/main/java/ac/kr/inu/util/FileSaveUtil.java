@@ -1,8 +1,6 @@
 package ac.kr.inu.util;
 
 import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileOutputStream;
@@ -11,8 +9,6 @@ import java.io.IOException;
 import static ac.kr.inu.util.DirInfo.*;
 
 public class FileSaveUtil {
-
-    private static Logger log = LoggerFactory.getLogger(FileSaveUtil.class);
 
     /**
      * @param uploadFile 업로드 받은 파일
@@ -23,7 +19,7 @@ public class FileSaveUtil {
      */
     public String upload(MultipartFile uploadFile, String name, String subDir) throws IOException {
         String origName = uploadFile.getOriginalFilename();
-        String ext = FilenameUtils.getExtension(origName);
+        String ext = getExtension(origName);
 
         String srcUrl;
         try {
@@ -45,6 +41,14 @@ public class FileSaveUtil {
             srcUrl = null;
         }
         return srcUrl;
+    }
+
+    private String getExtension(String origName) {
+        String ext = FilenameUtils.getExtension(origName);
+        if (!ext.equals("jpg")) {
+            return "jpg";
+        }
+        return ext;
     }
 
 }

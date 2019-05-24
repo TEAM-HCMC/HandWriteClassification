@@ -2,10 +2,12 @@
 
 .body_area {
     margin: 0 auto;
+    height: 100%;
 }
 
 .content {
     overflow: hidden;
+    height: 100%;
 }
 
 .content>div {
@@ -14,6 +16,7 @@
 
 .content-left {
     width: 80%;
+    height: 100%;
 }
 
 .content-right {

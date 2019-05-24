@@ -4,6 +4,7 @@
 
 .top {
     width: 80%;
+    padding-top: 20vh;
     margin: 0 auto;
 }
 

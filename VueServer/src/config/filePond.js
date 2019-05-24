@@ -2,12 +2,12 @@ import vueFilePond from 'vue-filepond';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 // Import image preview plugin styles
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
+// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 // Import image preview and file type validation plugins
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+// import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 
-const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+const FilePond = vueFilePond(FilePondPluginFileValidateType);
 
 const baseUrl = require('../config/serverUrl.js');
 
@@ -21,12 +21,11 @@ var process = function process(fieldName, file, metadata, load, error, progress,
   // file is the actual file object to send
   const formData = new FormData();
   formData.append("image", file);
-  formData.append("name", localStorage.getItem("name"));
   console.log("formData create.");
 
   const request = new XMLHttpRequest();
   request.open('POST', uploadUrl);
-  request.setRequestHeader("jwt",cookieUtils.getCookie('jwt'));
+  request.setRequestHeader("jwt", cookieUtils.getJwt());
   console.log("XMLHttpRequest open.");
 
   // Should call the progress method to update the progress to 100% before calling load
@@ -66,7 +65,7 @@ var process = function process(fieldName, file, metadata, load, error, progress,
   };
 };
 
-var load = function load (source, load, error, progress, abort, headers) {
+var load = function load(source, load, error, progress, abort, headers) {
   // Should request a file object from the server here
   // ...
 
@@ -95,7 +94,7 @@ var load = function load (source, load, error, progress, abort, headers) {
   };
 };
 
-var fetch = function fetch (url, load, error, progress, abort, headers) {
+var fetch = function fetch(url, load, error, progress, abort, headers) {
   // Should get a file object from the URL here
   // ...
 
@@ -124,7 +123,7 @@ var fetch = function fetch (url, load, error, progress, abort, headers) {
   };
 };
 
-var restore = function restore (uniqueFileId, load, error, progress, abort, headers) {
+var restore = function restore(uniqueFileId, load, error, progress, abort, headers) {
   // Should get the temporary file object from the server
   // ...
 
@@ -153,7 +152,7 @@ var restore = function restore (uniqueFileId, load, error, progress, abort, head
   };
 };
 
-var revert = function revert (uniqueFileId, load, error) {
+var revert = function revert(uniqueFileId, load, error) {
 
   // Should remove the earlier created temp file here
   // ...
@@ -165,9 +164,9 @@ var revert = function revert (uniqueFileId, load, error) {
   load();
 };
 
-export default{
+export default {
   vueFilePond,
   FilePondPluginFileValidateType,
-  FilePondPluginImagePreview,
+  // FilePondPluginImagePreview,
   FilePond,
 }

@@ -1,6 +1,8 @@
 <style lang="css" scoped>
 
-
+.signup_form{
+  padding-top: 20vh;
+}
 
 </style>
 
@@ -9,11 +11,11 @@
   <div class="signup_form">
     <div class="input_id">
         ID :
-        <input type="text" placeholder="email을 입력하세요." v-model="accountSaveReqDto.email">
+        <input type="text" placeholder="Email을 입력하세요." v-model="accountSaveReqDto.email">
     </div>
     <div class="input_name">
         NAME :
-        <input type="text" placeholder="이니셜을 입력하세요." v-model="accountSaveReqDto.name">
+        <input type="text" placeholder="모델이름을 입력하세요." v-model="accountSaveReqDto.name">
     </div>
     <div class="input_password_1">
         PW :
@@ -26,31 +28,90 @@
     <div class="submit">
       <button v-on:click="signUp">회원가입</button>
     </div>
+
+    <div class="modal">
+      <modal v-if="showModal" v-on:click="modalOk">
+      <h3 slot="header">{{headMessage}}</h3>
+      <span slot="body">{{bodyMessage}}</span>
+      <span slot="footer" v-on:click="modalOk">
+        {{tailMessage}}
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+    </modal>
+    </div>
   </div>
+
+
 
 </template>
 
 <script>
+import modal from '../../../utils/Modal.vue'
 const account = require('../../../http/account.js');
 
 export default {
-  data(){
+
+  data() {
     return {
-      accountSaveReqDto:{
-        email:'',
-        name:'',
-        password:''
+      accountSaveReqDto: {
+        email: '',
+        name: '',
+        password: ''
       },
-      password:'',
+      password: '',
+      showModal: false,
+      headMessage: "",
+      bodyMessage: "",
+      tailMessage: "",
+      isSuccess: false,
     }
   },
 
-  methods:{
+  methods: {
     signUp() {
-        account.signUp(this.accountSaveReqDto);
+      if(this.validate()){
+
+        account.signUp(this.accountSaveReqDto).then((data) => {
+            if (data) {
+              this.headMessage = "회원가입 성공";
+              this.bodyMessage = "회원가입에 성공하였습니다.";
+              this.tailMessage = "확인";
+              this.isSuccess = true;
+              this.showModal = true;
+            }
+          })
+          .catch((data) => {
+            this.headMessage = "회원가입 실패";
+            this.bodyMessage = data.message;
+            this.tailMessage = "확인";
+            this.isSuccess = false;
+            this.showModal = true;
+          });
+      }
+
+    },
+
+    validate() {
+      this.headMessage = "회원가입 실패";
+      if (this.password !== this.accountSaveReqDto.password) {
+        this.bodyMessage = "비밀번호가 일치하지 않습니다.";
+        this.tailMessage = "비밀번호를 확인해 주세요.";
+        this.showModal = true;
+        return false;
+      }
+      return true;
+    },
+
+    modalOk() {
+      this.showModal = false;
+      if (this.isSuccess) {
+        this.$router.push("/");
+      }
     }
+  },
+  components: {
+    modal,
   }
 
 }
-
 </script>

@@ -1,5 +1,7 @@
 package ac.kr.inu.util;
 
+import ac.kr.inu.exception.NoShellExistsException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,67 +13,59 @@ import java.util.Map;
 public class ShellUtil {
     private static final String BASH = "/bin/bash";
     private static final String RUN = "-c";
-    private static final String FAIL = "FAIL TO PRCESS.";
+    private static final String FAIL_MESSAGE = "FAIL TO PROCESS.";
     private static final String NO_PARAMETER = "";
     private static final String BLANK = " ";
 
     public static Map execCommand(String... str) {
-        Map<Integer, String> map = new HashMap<>();
         ProcessBuilder pb = new ProcessBuilder(str);
-
         pb.redirectErrorStream(true);
-        Process process = null;
 
+        Process process = startProcess(pb);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        List<String> echos = getEchos(reader);
+        waitExit(process);
+
+        return getMap(echos, process);
+    }
+
+    private static Process startProcess(ProcessBuilder pb) {
         try {
-            process = pb.start();
+            return pb.start();
+        } catch (IOException e) {
+            throw new NoShellExistsException();
+        }
+    }
+
+    private static List<String> getEchos(BufferedReader reader) {
+        try {
+            List<String> echos = new ArrayList<>();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                echos.add(line);
+            }
+            return echos;
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
+    }
 
-        BufferedReader reader = null;
-        if (process != null) {
-            reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-        }
-
-        String line;
-//        StringBuilder stringBuilder = new StringBuilder();
-
-        List<String> echos = new ArrayList<>();
+    private static void waitExit(Process process) {
         try {
-            if (reader != null) {
-                while ((line = reader.readLine()) != null) {
-                    echos.add(line);
-//                    stringBuilder.append(line).append("\n");
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            if (process != null) {
-                process.waitFor();
-            }
+            process.waitFor();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
+    }
 
-        if (process != null) {
-            map.put(0, String.valueOf(process.exitValue()));
-
-            for (int i = 1; i <= echos.size(); i++) {
-                map.put(i, echos.get(i - 1));
-            }
+    private static Map getMap(List<String> echos, Process process) {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(0, String.valueOf(process.exitValue()));
+        for (int i = 1; i <= echos.size(); i++) {
+            map.put(i, echos.get(i - 1));
         }
-
-//        try {
-//            map.put(1, stringBuilder.toString());
-//        } catch (StringIndexOutOfBoundsException e) {
-//            if (stringBuilder.toString().length() == 0) {
-//                return map;
-//            }
-//        }
-
         return map;
     }
 
@@ -81,6 +75,12 @@ public class ShellUtil {
 
     public static String[] getBashCmd(final String shell, final String... parameter) {
         List<String> callCmd = getBasicCmd();
+        StringBuilder command = assembleCommand(shell, parameter);
+        callCmd.add(command.toString());
+        return callCmd.toArray(new String[0]);
+    }
+
+    private static StringBuilder assembleCommand(String shell, String... parameter) {
         StringBuilder command = new StringBuilder();
         command.append(shell)
                 .append(BLANK);
@@ -88,9 +88,7 @@ public class ShellUtil {
             command.append(parameter[i])
                     .append(BLANK);
         }
-
-        callCmd.add(command.toString());
-        return callCmd.toArray(new String[0]);
+        return command;
     }
 
     private static List<String> getBasicCmd() {
@@ -102,7 +100,7 @@ public class ShellUtil {
 
     public static Map getFailResult() {
         Map<Integer, String> result = new HashMap<>();
-        result.put(0, FAIL);
+        result.put(0, FAIL_MESSAGE);
         return result;
     }
 }

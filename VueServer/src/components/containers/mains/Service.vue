@@ -1,6 +1,7 @@
 <style lang="css" scoped>
 
 .service {
+    height: 100%;
     position: relative;
 }
 
@@ -11,6 +12,7 @@
 }
 
 .description {
+    padding-top: 5vh;
     font-weight: bold;
     font-size: 1.4vw;
 }
@@ -22,22 +24,96 @@
     margin-right: 3em;
 }
 
+.imgs {
+    margin: 1em;
+}
+
+.fas fa-angle-down {
+    color: #42b983;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 0;
+    text-align: left;
+}
+
+li {
+    float: left;
+    display: flex;
+    padding: 0 0.9rem;
+    background: white;
+    border-radius: 5px;
+}
+
+.list-enter-active,
+.list-leave-active {
+    transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.step {
+  position: relative;
+  height: 100vh;
+}
+
+.train {
+    padding-top: 20vh;
+    height: 20vh;
+}
+
+.input_train_image {
+  padding-top: 1em;
+    height: 100%;
+    overflow: auto;
+}
+
+.input_compare_image {
+    height: 100%;
+    overflow: auto;
+}
+
+.image_ok {
+    padding-top: 20vh;
+}
+
+.arrow_down {
+    position: absolute;
+    display: block;
+    width: 100%;
+    bottom: 1em;
+}
+
+.arrow_up {
+    display: block;
+    width: 100%;
+}
+
+i {
+    cursor: pointer;
+}
+
+.compare {
+    padding-top: 20vh;
+}
+
 .model {
     position: relative;
     width: 100%;
-    margin-top: 8em;
-    margin-bottom: 3em;
+    height: 100%;
+    padding-top: 20vh;
 }
 
-.model > div {
-    position: relative;
-    display: inline-block;
-    margin-left: 3em;
-    margin-right: 3em;
-}
-
-.imgs{
-  margin: 1em;
+.result{
+  width: 100%;
+  height: 100%;
+  padding-top: 20vh;
 }
 
 </style>
@@ -46,71 +122,135 @@
 
 <div class="service">
 
-    <div class="image">
-        <div class="input_train_image">
-            <span class="description">
-            검증 기준 <br>이미지를 업로드
-          </span>
-            <file-pond name="/image/save/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
-            <div class="contour_train_image">
-                <button v-on:click="contour('train/')">이미지 업로드 완료</button>
+    <div class="first step">
+
+        <div class="train">
+            <div class="input_train_image">
+                <span class="description">
+              검증 기준 <br>이미지를 업로드
+            </span>
+                <file-pond name="/image/save/train" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
+            </div>
+
+
+            <div class="image_ok">
+                <div class="showStep2">
+                    <button v-on:click="contour('train/')">이미지 업로드 완료</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="arrow_down">
+            <i class="fas fa-angle-down fa-4x" v-on:click="first_next"></i>
+        </div>
+
+    </div>
+
+    <div class="second step">
+
+        <div class="compare">
+
+            <div class="arrow_up">
+                <i class="fas fa-angle-up fa-4x" v-on:click="second_back"></i>
+            </div>
+
+            <div class="input_compare_image">
+                <div class="description">
+                    검증 대상
+                    <br>이미지를 업로드
+                </div>
+                <file-pond name="/image/save/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
+
             </div>
         </div>
 
-        <div class="input_compare_image">
-            <div class="description">
-                검증 대상
-                <br>이미지를 업로드
-            </div>
-            <file-pond name="/image/save/compare" ref="pond" label-idle="Drop files here..." allow-multiple="true" accepted-file-types="image/jpeg, image/png" :server="{  process, revert,  restore, load, fetch }" v-bind:files="myFiles" />
-            <div class="contour_train_image">
+        <div class="image_ok">
+            <div class="showStep4">
                 <button v-on:click="contour('compare/')">이미지 업로드 완료</button>
             </div>
         </div>
+
+        <div class="arrow_down">
+            <i class="fas fa-angle-down fa-4x" v-on:click="second_next"></i>
+        </div>
+
     </div>
 
+    <div class="third step">
 
+        <div class="model">
 
-    <div class="model">
-        <div class="train_model">
-            <div class="description">
-                모델 학습 시키기
+          <div class="arrow_up">
+              <i class="fas fa-angle-up fa-4x" v-on:click="third_back"></i>
+          </div>
+
+            <div class="train_model">
+                <div class="description">
+                    모델 학습 시키기
+                </div>
+                <button v-on:click="train">모델 학습 시작</button>
             </div>
-            <button v-on:click="train">모델 학습 시작</button>
-        </div>
 
-        <div class="compare_model">
-            <div class="description">
-                필적 검증 하기
+            <div class="compare_model">
+                <div class="description">
+                    필적 검증 하기
+                </div>
+                <button v-on:click="compare">필적 검증 시작</button>
             </div>
-            <button v-on:click="compare">필적 검증 시작</button>
+
         </div>
+
+        <div class="arrow_down">
+            <i class="fas fa-angle-down fa-4x" v-on:click="third_next"></i>
+        </div>
+
     </div>
 
-    <div class="result">
-        <button v-on:click="getResult">결과확인</button>
-        <div class="correct">
-            {{rate.correct}}
+    <div class="fourth step">
+
+        <div class="result">
+          <div class="arrow_up">
+              <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
+          </div>
+
+            <button v-on:click="getResult">결과확인</button>
+            <div class="correct">
+                {{rate.correct}}
+            </div>
+            <div class="wrong">
+                {{rate.wrong}}
+            </div>
+            <transition-group name="list" tag="ul">
+                <li v-for="comparedImg in comparedImgs" :key="comparedImg">
+                    <img class="imgs" :src="comparedImg" />
+                </li>
+            </transition-group>
         </div>
-        <div class="wrong">
-            {{rate.wrong}}
-        </div>
-        <div class="comparedImgs">
-          <img class="imgs" v-for="comparedImg in comparedImgs" :src="comparedImg" />
-        </div>
+
     </div>
 
+    <div class="modal">
+        <modal v-if="showModal" v-on:click="backToHome">
+            <h3 slot="header">경고</h3>
+            <span slot="body">로그인 후 이용할 수 있습니다.</span>
+            <span slot="footer" v-on:click="backToHome">
+        로그인 하십시오.
+        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+      </span>
+        </modal>
+    </div>
 
 </div>
 
 </template>
 
 <script>
-// Import Vue FilePond
+import modal from '../../../utils/Modal.vue'
+
 const fileUtils = require('../../../config/filepond');
 const image = require('../../../http/image');
 const model = require('../../../http/model');
-
 
 const baseUrl = require('../../../config/serverUrl.js');
 const cookieUtils = require('../../../utils/cookie.js');
@@ -125,19 +265,69 @@ export default {
         'wrong': ""
       },
       comparedImgs: [],
+      showModal: false,
     };
   },
 
   created() {
     if (cookieUtils.getJwt() === null) {
-      // this.$router.push("/home");
+      this.showModal = true;
     }
   },
 
   methods: {
+
+    first_next() {
+      var firstDiv = document.getElementsByClassName("first");
+      firstDiv[0].style.display = "none";
+      var secondDiv = document.getElementsByClassName("second");
+      secondDiv[0].style.display = "block";
+    },
+
+    second_back() {
+      var firstDiv = document.getElementsByClassName("first");
+      firstDiv[0].style.display = "block";
+      var secondDiv = document.getElementsByClassName("second");
+      secondDiv[0].style.display = "none";
+    },
+
+    second_next() {
+      var secondDiv = document.getElementsByClassName("second");
+      secondDiv[0].style.display = "none";
+      var thirdDiv = document.getElementsByClassName("third");
+      thirdDiv[0].style.display = "block";
+    },
+
+    third_back() {
+      var secondDiv = document.getElementsByClassName("second");
+      secondDiv[0].style.display = "block";
+      var thirdDiv = document.getElementsByClassName("third");
+      thirdDiv[0].style.display = "none";
+    },
+
+    third_next() {
+      var thirdDiv = document.getElementsByClassName("third");
+      thirdDiv[0].style.display = "none";
+      var fourthDiv = document.getElementsByClassName("fourth");
+      fourthDiv[0].style.display = "block";
+    },
+
+    fourth_back() {
+      var thirdDiv = document.getElementsByClassName("third");
+      thirdDiv[0].style.display = "block";
+      var fourthDiv = document.getElementsByClassName("fourth");
+      fourthDiv[0].style.display = "none";
+    },
+
+    backToHome() {
+      this.showModal = false;
+      this.$router.push("/");
+    },
+
     contour(direction) {
       image.startContour(direction);
     },
+
     train() {
       model.startTrain(localStorage.getItem('name'));
     },
@@ -145,20 +335,23 @@ export default {
     compare() {
       model.startCompare(localStorage.getItem('name'));
     },
+
     getResult() {
-      model.getResult().then((resDto) => {
+      if (this.comparedImgs.length === 0) {
+        model.getResult().then((resDto) => {
           this.rate.correct = resDto.correct;
           this.rate.wrong = resDto.wrong;
-      });
-
-      console.log("비교완료이미지출력");
-      image.getComparedImgs().then((imgUrls) => {
-        this.comparedImgs = [];
-        imgUrls.forEach((now, idx, array) => {
-          this.comparedImgs.push(now.url);
         });
-      });
 
+        image.getComparedImgs().then((imgUrls) => {
+          this.comparedImgs = [];
+          imgUrls.forEach((now, idx, array) => {
+            this.comparedImgs.push(now.url);
+          });
+        });
+      } else {
+        this.comparedImgs = [];
+      }
     },
 
     process(fieldName, file, metadata, load, error, progress, abort) {
@@ -315,8 +508,9 @@ export default {
     }
   },
   components: {
-    fileUtils
-  }
+    fileUtils,
+    modal
+  },
 
 }
 </script>

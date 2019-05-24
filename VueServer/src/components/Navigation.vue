@@ -1,7 +1,12 @@
 <style lang="css" scoped>
 
 .nav_area {
-    background-color: #FFF;
+    background-color: #ffffff;
+    background-color: rgba( 255, 255, 255, 0);
+    position: fixed;
+    width: 80vh;
+    top: 0;
+    z-index: 10;
 }
 
 .nav_bar {
@@ -14,7 +19,6 @@
     font-size: 1.5vw;
     float: left;
     font-weight: bold;
-    margin: 1rem 0rem 1rem 0rem;
     padding-left: 2vw;
 }
 

@@ -33,21 +33,29 @@ export const store = new Vuex.Store({
         email: loginReqDto.email,
         password: loginReqDto.password
       };
-      var message = "로그인 실패";
 
-      return axios.post(baseUrl + '/account/login', reqDto, config)
-        .then((res) => {
-          cookieUtils.setCookie('jwt', res.data.jwt);
-          message = "로그인 성공";
-        })
-        .catch((error) => {
-          cookieUtils.deleteCookie('jwt');
-          console.log(error);
-        })
-        .then(() => {
-          console.log(message);
-          location.reload();
-        });
+      var resDto = {
+        status:null,
+        message:'로그인 성공',
+      }
+
+      return new Promise((resolve, reject) => {
+        axios.post(baseUrl + '/account/login', reqDto, config)
+          .then((res) => {
+            cookieUtils.setCookie('jwt', res.data.jwt);
+            resDto.status = res.status;
+          })
+          .catch((err) => {
+            cookieUtils.deleteCookie('jwt');
+            resDto.status = err.response.status;
+            resDto.message = err.response.data.message;
+          })
+          .then(() => {
+            resolve(resDto);
+          });
+
+      });
+
 
     },
 
