@@ -12,7 +12,6 @@
     <div class="input_id">
         ID :
         <input type="text" placeholder="email을 입력하세요." v-model="accountLoginReqDto.email">
-
     </div>
     <div class="input_password">
         PW :
@@ -28,9 +27,9 @@
     <div class="modal">
         <modal v-if="showModal" v-on:click="modalOk">
             <h3 slot="header">경고</h3>
-            <span slot="body">로그인 후 이용할 수 있습니다.</span>
+            <span slot="body">{{bodyMessage}}</span>
             <span slot="footer" v-on:click="modalOk">
-        로그인 하십시오.
+        아이디 및 비밀번호를 확인하십시오.
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
         </modal>
