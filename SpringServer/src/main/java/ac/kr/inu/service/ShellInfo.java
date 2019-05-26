@@ -10,4 +10,5 @@ public class ShellInfo {
     public static final String COMPARE_RESULT_SHELL="sh ../script/getResult.sh";
     public static final String IMAGE_DELETE_SHELL="";
     public static final String IMAGE_GET_SHELL="";
+    public static final String USER_STATUS_SHELL = "";
 }
