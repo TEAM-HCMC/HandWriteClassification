@@ -12,7 +12,6 @@
 }
 
 .description {
-    padding-top: 5vh;
     font-weight: bold;
     font-size: 1.4vw;
 }
@@ -69,8 +68,8 @@ li {
 }
 
 .input_train_image {
-  padding-top: 1em;
-    height: 100%;
+  padding-top: 1vh;
+    height: 104%;
     overflow: auto;
 }
 
@@ -80,7 +79,7 @@ li {
 }
 
 .image_ok {
-    padding-top: 20vh;
+    padding-top: 19vh;
 }
 
 .arrow_down {
@@ -93,6 +92,8 @@ li {
 .arrow_up {
     display: block;
     width: 100%;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
 }
 
 i {
@@ -273,6 +274,15 @@ export default {
     if (cookieUtils.getJwt() === null) {
       this.showModal = true;
     }
+  },
+
+  mounted(){
+    var secondDiv = document.getElementsByClassName("second");
+    secondDiv[0].style.display = "none";
+    var thirdDiv = document.getElementsByClassName("third");
+    thirdDiv[0].style.display = "none";
+    var fourthDiv = document.getElementsByClassName("fourth");
+    fourthDiv[0].style.display = "none";
   },
 
   methods: {

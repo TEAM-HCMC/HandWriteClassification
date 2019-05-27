@@ -17,6 +17,22 @@
     </div>
     <button v-on:click="logout">로그아웃</button>
 
+    <div class="status">
+
+        <div class="trainImage">
+            검증 기준 이미지
+        </div>
+
+        <div class="compareImage">
+            검증 대상 이미지
+        </div>
+
+        <div class="trainModel">
+            검증 모델
+        </div>
+
+    </div>
+
 </div>
 
 </template>
@@ -38,6 +54,11 @@ export default {
     return {
       email: null,
       name: null,
+      status:{
+        trainImage:null,
+        compareImage:null,
+        trainModel:null,
+      }
     }
   },
 

@@ -4,12 +4,13 @@
     background-color: #ffffff;
     background-color: rgba( 255, 255, 255, 0);
     position: fixed;
-    width: 80vh;
+    width: 80%;
     top: 0;
     z-index: 10;
 }
 
 .nav_bar {
+  width: 80%;
     font-weight: bold;
     overflow: hidden;
     color: #2F3B52;
