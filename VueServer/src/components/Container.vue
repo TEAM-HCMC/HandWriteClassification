@@ -23,9 +23,9 @@
     width: 20%;
 }
 
-.shadow {
+/* .shadow {
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.1)
-}
+} */
 
 
 </style>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="content-right">
-            <Side class="shadow"></Side>
+            <Side></Side>
         </div>
 
     </div>

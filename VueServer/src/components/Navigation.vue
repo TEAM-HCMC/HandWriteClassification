@@ -26,7 +26,6 @@
 .uol>li {
     float: left;
     width: 10vw;
-    height: 10vw;
 }
 
 .vertical_align {
@@ -35,8 +34,8 @@
 }
 
 .logo {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 }
 
 </style>

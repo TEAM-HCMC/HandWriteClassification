@@ -1,52 +1,69 @@
 <style lang="css" scoped>
 
-.signup_form{
-  padding-top: 20vh;
+.signup_form {
+    padding-top: 20vh;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.container {
+    width: 100%;
+}
+
+#login_form {
+    display: inline-block;
 }
 
 </style>
 
 <template lang="html">
 
-  <div class="signup_form">
-    <div class="input_id">
-        ID :
-        <input type="text" placeholder="Email을 입력하세요." v-model="accountSaveReqDto.email">
-    </div>
-    <div class="input_name">
-        NAME :
-        <input type="text" placeholder="모델이름을 입력하세요." v-model="accountSaveReqDto.name">
-    </div>
-    <div class="input_password_1">
-        PW :
-        <input type="password" placeholder="비밀번호를 입력하세요." v-model="accountSaveReqDto.password">
-    </div>
-    <div class="input_password_2">
-        PW :
-        <input type="password" placeholder="비밀번호 확인." v-model="password">
-    </div>
-    <div class="submit">
-      <button v-on:click="signUp">회원가입</button>
+<div class="signup_form">
+    <div class="container">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title">회원가입</div>
+            </div>
+            <div class="panel-body">
+                <form id="login-form">
+                    <div>
+                        <input type="text" class="form-control" name="username" placeholder="Email" v-model="accountSaveReqDto.email" autofocus>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" name="modelname" placeholder="Model Name" v-model="accountSaveReqDto.name">
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="password" placeholder="Password" v-model="accountSaveReqDto.password">
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="password_ok" placeholder="Password_Ok" v-model="password">
+                    </div>
+                    <div>
+                        <br>
+                        <button v-on:click="signUp" class="form-control btn btn-primary">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div class="modal">
-      <modal v-if="showModal" v-on:click="modalOk">
-      <h3 slot="header">{{headMessage}}</h3>
-      <span slot="body">{{bodyMessage}}</span>
-      <span slot="footer" v-on:click="modalOk">
-        {{tailMessage}}
-        <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
-      </span>
-    </modal>
+    <div class="myModal">
+        <myModal v-if="showModal" v-on:click="modalOk">
+            <h3 slot="header">{{headMessage}}</h3>
+            <span slot="body">{{bodyMessage}}</span>
+            <span slot="footer" v-on:click="modalOk">
+      {{tailMessage}}
+      <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
+    </span>
+        </myModal>
     </div>
-  </div>
 
-
+</div>
 
 </template>
 
 <script>
-import modal from '../../../utils/Modal.vue'
+import myModal from '../../../utils/Modal.vue'
 const account = require('../../../http/account.js');
 
 export default {
@@ -69,7 +86,7 @@ export default {
 
   methods: {
     signUp() {
-      if(this.validate()){
+      if (this.validate()) {
 
         account.signUp(this.accountSaveReqDto).then((data) => {
             if (data) {
@@ -110,7 +127,7 @@ export default {
     }
   },
   components: {
-    modal,
+    myModal,
   }
 
 }

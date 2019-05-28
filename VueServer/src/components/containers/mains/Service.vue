@@ -2,6 +2,8 @@
 
 .service {
     height: 100%;
+    width: 80%;
+    margin: 0 auto;
     position: relative;
 }
 
@@ -64,12 +66,11 @@ li {
 
 .train {
     padding-top: 20vh;
-    height: 20vh;
+    height: 20%;
 }
 
 .input_train_image {
   padding-top: 1vh;
-    height: 104%;
     overflow: auto;
 }
 
@@ -136,7 +137,7 @@ i {
 
             <div class="image_ok">
                 <div class="showStep2">
-                    <button v-on:click="contour('train/')">이미지 업로드 완료</button>
+                    <button class="form-control btn btn-primary" v-on:click="contour('train/')">이미지 업로드 완료</button>
                 </div>
             </div>
 
@@ -168,7 +169,7 @@ i {
 
         <div class="image_ok">
             <div class="showStep4">
-                <button v-on:click="contour('compare/')">이미지 업로드 완료</button>
+                <button class="form-control btn btn-primary" v-on:click="contour('compare/')">이미지 업로드 완료</button>
             </div>
         </div>
 
@@ -188,16 +189,14 @@ i {
 
             <div class="train_model">
                 <div class="description">
-                    모델 학습 시키기
                 </div>
-                <button v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-on:click="train">모델 학습 시작</button>
             </div>
-
+            <br><br><br><br>
             <div class="compare_model">
                 <div class="description">
-                    필적 검증 하기
                 </div>
-                <button v-on:click="compare">필적 검증 시작</button>
+                <button class="form-control btn btn-primary" v-on:click="compare">필적 검증 시작</button>
             </div>
 
         </div>
@@ -215,7 +214,7 @@ i {
               <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
           </div>
 
-            <button v-on:click="getResult">결과확인</button>
+            <button class="form-control btn btn-primary" v-on:click="getResult">결과확인</button>
             <div class="correct">
                 {{rate.correct}}
             </div>
@@ -231,15 +230,15 @@ i {
 
     </div>
 
-    <div class="modal">
-        <modal v-if="showModal" v-on:click="backToHome">
+    <div class="myModal">
+        <myModal v-if="showModal" v-on:click="backToHome">
             <h3 slot="header">경고</h3>
             <span slot="body">로그인 후 이용할 수 있습니다.</span>
             <span slot="footer" v-on:click="backToHome">
         로그인 하십시오.
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
-        </modal>
+        </myModal>
     </div>
 
 </div>
@@ -247,7 +246,7 @@ i {
 </template>
 
 <script>
-import modal from '../../../utils/Modal.vue'
+import myModal from '../../../utils/Modal.vue'
 
 const fileUtils = require('../../../config/filepond');
 const image = require('../../../http/image');
@@ -519,7 +518,7 @@ export default {
   },
   components: {
     fileUtils,
-    modal
+    myModal
   },
 
 }
