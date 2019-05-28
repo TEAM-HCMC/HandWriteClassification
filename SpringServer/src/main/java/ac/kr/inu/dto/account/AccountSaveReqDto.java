@@ -19,7 +19,7 @@ public class AccountSaveReqDto {
                 .build();
     }
 
-    public Model toModelEntity(){
+    public Model toModelEntity() {
         return new Model(this);
     }
 }

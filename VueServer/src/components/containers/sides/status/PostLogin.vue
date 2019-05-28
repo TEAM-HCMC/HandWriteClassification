@@ -20,15 +20,21 @@
     <div class="status">
 
         <div class="trainImage">
-            검증 기준 이미지
+            <br />검증 기준 이미지<br />
+            <span>입력여부 :</span><br />
+            <span>입력시간 :</span><br /><br />
         </div>
 
         <div class="compareImage">
-            검증 대상 이미지
+            검증 대상 이미지<br />
+            <span>입력여부 :</span><br />
+            <span>입력시간 :</span><br /><br />
         </div>
 
         <div class="trainModel">
-            검증 모델
+            검증 모델<br />
+            <span>생성여부 : {{status.trainModelFlag}}</span><br />
+            <span>생성시간 : {{status.trainModel}}</span><br /><br />
         </div>
 
     </div>
@@ -58,6 +64,7 @@ export default {
         trainImage:null,
         compareImage:null,
         trainModel:null,
+        trainModelFlag:null,
       }
     }
   },
@@ -66,6 +73,10 @@ export default {
     httpAccount.getAccountInfo().then((reqDto) => {
       this.email = reqDto.email;
       this.name = reqDto.name;
+      var log = reqDto.log;
+      console.log(reqDto);
+      this.status.trainModel = log.train.created;
+      this.status.trainModelFlag = log.train.flag;
     })
   },
 

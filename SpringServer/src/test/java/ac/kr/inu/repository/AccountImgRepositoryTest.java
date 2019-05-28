@@ -1,7 +1,6 @@
 package ac.kr.inu.repository;
 
 import ac.kr.inu.domain.Account;
-import ac.kr.inu.domain.AccountImg;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @TestPropertySource("classpath:aws.properties")

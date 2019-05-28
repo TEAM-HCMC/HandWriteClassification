@@ -26,8 +26,8 @@ public class ShellExceptionControllerAdvice {
     }
 
     @ExceptionHandler(NoShellExistsException.class)
-    public ResponseEntity<ExceptionResponseDto> noShellExists(NoShellExistsException e){
-        log.info("[NoShellExistsException] {}",e.getMessage());
+    public ResponseEntity<ExceptionResponseDto> noShellExists(NoShellExistsException e) {
+        log.info("[NoShellExistsException] {}", e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(ExceptionResponseDto.builder()
                         .field(FIELD)

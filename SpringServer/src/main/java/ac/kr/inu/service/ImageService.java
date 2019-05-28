@@ -55,7 +55,7 @@ public class ImageService {
 
         String sub = getSubNumber(subDir, accountImg);
 
-        String subName = account.getName() + sub;
+        String subName = account.getModelName() + sub;
 
         try {
             final String imageUrl = new FileSaveUtil().upload(file, subName, subDir);
@@ -69,7 +69,7 @@ public class ImageService {
     public Map contourImage(String subDir, Long id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(NoSuchAccountException::new);
-        String initial = account.getName();
+        String initial = account.getModelName();
         String trainPath = DEFAULT_SRC_DIR + subDir + initial;
 
         String[] callCmd = getContourCallCmd(trainPath, subDir);

@@ -19,9 +19,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static ac.kr.inu.service.ShellInfo.*;
-import static ac.kr.inu.util.DirInfo.COMPARE;
-import static ac.kr.inu.util.DirInfo.S3_RESULT;
-import static ac.kr.inu.util.DirInfo.TRAIN;
+import static ac.kr.inu.util.DirInfo.*;
 
 @Slf4j
 @Service
@@ -44,7 +42,7 @@ public class ModelService {
     public Map compareModel(Long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(NoSuchAccountException::new);
-        String name = account.getName();
+        String name = account.getModelName();
 
         String[] callCmd = ShellUtil.getBashCmd(COMPARE_SHELL, COMPARE + name);
         Map map = ShellUtil.execCommand(callCmd);
@@ -61,7 +59,7 @@ public class ModelService {
 
     public void uploadCompareImageResult(Account account) {
         String outputPath = DirInfo.OUTPUT;
-        String name = account.getName();
+        String name = account.getModelName();
         String outputImageReg = name + UPLOAD_S3_REG;
 
         File dirFile = new File(outputPath);
@@ -100,6 +98,6 @@ public class ModelService {
     private String getAccountName(Long accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(NoSuchElementException::new)
-                .getName();
+                .getModelName();
     }
 }
