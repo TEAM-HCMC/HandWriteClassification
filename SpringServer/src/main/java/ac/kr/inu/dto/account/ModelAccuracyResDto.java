@@ -12,6 +12,9 @@ public class ModelAccuracyResDto {
     }
 
     private String getAccuracy(String accuracy) {
-        return accuracy.substring(0, 4) + "%";
+        if(accuracy.equals("0")){
+            return accuracy+"%";
+        }
+        return accuracy.substring(2, 4) + "%";
     }
 }

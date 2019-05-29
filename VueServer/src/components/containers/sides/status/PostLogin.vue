@@ -26,10 +26,10 @@
         <div class="panel-body">
             <form id="login-form">
                 <div class="email">
-                    Email : {{email}}
+                    Email : {{this.$store.state.email}}
                 </div>
                 <div class="name">
-                    Model : {{name}}
+                    Model : {{this.$store.state.name}}
                 </div>
 
                 <div class="status">
@@ -66,6 +66,15 @@
                         <br />
                     </div>
 
+                    <div class="compareModel">
+                      검증 이미지 여부
+                      <br />
+                      <span>생성여부 : {{this.$store.state.status.compareModelFlag}}</span>
+                      <br />
+                      <span>생성시간 : {{this.$store.state.status.compareModelCreated}}</span>
+                      <br />
+                      <br />
+                    </div>
                 </div>
 
                 <div>
@@ -102,20 +111,7 @@ export default {
   },
 
   created() {
-    httpAccount.getAccountInfo().then((reqDto) => {
-      this.email = reqDto.email;
-      this.name = reqDto.name;
-      var log = reqDto.log;
-
-      this.$store.commit('setTrainImageFlag',{flag:log.contour.flag});
-      this.$store.commit('setTrainImageCreated',{created:log.contour.created});
-      this.$store.commit('setCompareImageFlag',{flag:log.compare.flag});
-      this.$store.commit('setCompareImageCreated',{created:log.compare.created});
-      this.$store.commit('setTrainModelFlag',{flag:log.train.flag});
-      this.$store.commit('setTrainModelCreated',{created:log.train.created});
-      this.$store.commit('setModelAccuracy',{accuracy:reqDto.model.accuracy});
-
-    })
+    this.$store.dispatch('refresh');
   },
 
   mounted() {
@@ -131,21 +127,8 @@ export default {
       if (jwt !== null) {
         setInterval(() => {
           console.log("refresh");
-          httpAccount.getAccountInfo().then((reqDto) => {
-            this.email = reqDto.email;
-            this.name = reqDto.name;
-            var log = reqDto.log;
-            console.log(reqDto);
-            this.$store.commit('setTrainImageFlag',{flag:log.contour.flag});
-            this.$store.commit('setTrainImageCreated',{created:log.contour.created});
-            this.$store.commit('setCompareImageFlag',{flag:log.compare.flag});
-            this.$store.commit('setCompareImageCreated',{created:log.compare.created});
-            this.$store.commit('setTrainModelFlag',{flag:log.train.flag});
-            this.$store.commit('setTrainModelCreated',{created:log.train.created});
-            this.$store.commit('setModelAccuracy',{accuracy:reqDto.model.accuracy});
-
-          })
-        }, 6000);
+          this.$store.dispatch('refresh');
+        }, 10000);
       }
     },
 

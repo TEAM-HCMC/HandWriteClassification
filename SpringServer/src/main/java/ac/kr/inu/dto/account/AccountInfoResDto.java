@@ -10,7 +10,7 @@ public class AccountInfoResDto {
     private LogResDto log;
     private ModelAccuracyResDto model;
 
-    public AccountInfoResDto(Account account, LogResDto log,ModelAccuracyResDto accuracyResDto) {
+    public AccountInfoResDto(Account account, LogResDto log, ModelAccuracyResDto accuracyResDto) {
         this.email = account.getEmail();
         this.name = account.getModelName();
         this.log = log;

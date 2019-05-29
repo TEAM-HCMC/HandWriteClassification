@@ -7,13 +7,15 @@ import lombok.Getter;
 public class LogResDto {
 
     private TrainLogResDto train;
-    private ContourLogResDto contour;
+    private TrainContourResDto trainContour;
+    private CompareContourResDto compareContour;
     private CompareResDto compare;
 
     @Builder
-    public LogResDto(TrainLogResDto train, ContourLogResDto contour, CompareResDto compare) {
+    public LogResDto(TrainLogResDto train, TrainContourResDto trainContour, CompareContourResDto compareContour, CompareResDto compare) {
         this.train = train;
-        this.contour = contour;
-        this.compare=compare;
+        this.trainContour = trainContour;
+        this.compareContour = compareContour;
+        this.compare = compare;
     }
 }

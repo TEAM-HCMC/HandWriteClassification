@@ -22,8 +22,9 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class AccountService {
 
+    private static final String TRAIN_CONTOUR = "train_contour";
+    private static final String COMPARE_CONTOUR = "compare_contour";
     private static final String TRAIN = "train";
-    private static final String CONTOUR = "contour";
     private static final String COMPARE = "compare";
 
     private final AccountRepository accountRepository;
@@ -76,12 +77,14 @@ public class AccountService {
         FileReadUtils fileReadUtils = new FileReadUtils();
 
         TrainLogResDto trainLogResDto = new TrainLogResDto(fileReadUtils.findCategoryLogFile(files, TRAIN));
-        ContourLogResDto contourLogResDto = new ContourLogResDto(fileReadUtils.findCategoryLogFile(files, CONTOUR));
+        TrainContourResDto trainContourResDto = new TrainContourResDto(fileReadUtils.findCategoryLogFile(files, TRAIN_CONTOUR));
+        CompareContourResDto compareContourResDto = new CompareContourResDto(fileReadUtils.findCategoryLogFile(files, COMPARE_CONTOUR));
         CompareResDto compareResDto = new CompareResDto(fileReadUtils.findCategoryLogFile(files, COMPARE));
 
         return LogResDto.builder()
                 .compare(compareResDto)
-                .contour(contourLogResDto)
+                .trainContour(trainContourResDto)
+                .compareContour(compareContourResDto)
                 .train(trainLogResDto)
                 .build();
     }

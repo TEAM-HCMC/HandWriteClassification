@@ -25,9 +25,9 @@ public class ComparedImg {
     private String percentage;
 
     @Builder
-    public ComparedImg(String imgUrl,String percentage, Account account) {
+    public ComparedImg(String imgUrl, String percentage, Account account) {
         this.imgUrl = imgUrl;
-        this.percentage=percentage;
+        this.percentage = percentage;
         this.account = account;
     }
 

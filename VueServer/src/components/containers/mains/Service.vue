@@ -118,11 +118,13 @@ i {
   width: 100%;
   height: 100%;
   padding-top: 20vh;
+  overflow: auto;
 }
 
 button{
   width: auto;
 }
+
 
 </style>
 
@@ -143,7 +145,8 @@ button{
 
             <div class="image_ok">
                 <div class="showStep2">
-                    <button class="form-control btn btn-primary" v-on:click="contour('train/')">이미지 업로드 완료</button>
+                    <button class="form-control btn btn-primary" v-if="!isTrainImageMaking()" v-on:click="contour('train/')">이미지 업로드 완료</button>
+                    <button class="form-control btn btn-primary" v-if="isTrainImageMaking()">이미지 업로드 중</button>
                 </div>
             </div>
 
@@ -175,7 +178,8 @@ button{
 
         <div class="image_ok">
             <div class="showStep4">
-                <button class="form-control btn btn-primary" v-on:click="contour('compare/')">이미지 업로드 완료</button>
+                <button class="form-control btn btn-primary" v-if="!isCompareImageMaking()" v-on:click="contour('compare/')">이미지 업로드 완료</button>
+                <button class="form-control btn btn-primary" v-if="isCompareImageMaking()" >이미지 업로드 중</button>
             </div>
         </div>
 
@@ -196,13 +200,15 @@ button{
             <div class="train_model">
                 <div class="description">
                 </div>
-                <button class="form-control btn btn-primary" v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-if="!isTrainModelMaking()" v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-if="isTrainModelMaking()" >모델 학습 중</button>
             </div>
             <br><br><br><br>
             <div class="compare_model">
                 <div class="description">
                 </div>
-                <button class="form-control btn btn-primary" v-on:click="compare">필적 검증 시작</button>
+                <button class="form-control btn btn-primary" v-if="!isCompareModelMaking()" v-on:click="compare">필적 검증 시작</button>
+                <button class="form-control btn btn-primary" v-if="isCompareModelMaking()">필적 검증 중</button>
             </div>
 
         </div>
@@ -228,8 +234,8 @@ button{
                 {{rate.wrong}}
             </div>
             <transition-group name="list" tag="ul">
-                <li v-for="comparedImg in comparedImgs" :key="comparedImg">
-                    <img class="imgs" :src="comparedImg" />
+                <li v-for="each in compared.imgs" :key="each">
+                    <img class="imgs" :src="each" />
                 </li>
             </transition-group>
         </div>
@@ -270,7 +276,11 @@ export default {
         'correct': "",
         'wrong': ""
       },
-      comparedImgs: [],
+      compared:{
+        imgs: [],
+        accuracy:[],
+      },
+
       showModal: false,
     };
   },
@@ -281,7 +291,7 @@ export default {
     }
   },
 
-  mounted(){
+  mounted() {
     var secondDiv = document.getElementsByClassName("second");
     secondDiv[0].style.display = "none";
     var thirdDiv = document.getElementsByClassName("third");
@@ -334,38 +344,55 @@ export default {
       fourthDiv[0].style.display = "none";
     },
 
+    isTrainImageMaking() {
+      return (this.$store.state.status.trainImageFlag == "생성 중");
+    },
+    isCompareImageMaking() {
+      return (this.$store.state.status.compareImageFlag == "생성 중");
+    },
+    isTrainModelMaking() {
+      return (this.$store.state.status.trainModelFlag == "생성 중");
+    },
+    isCompareModelMaking() {
+      return (this.$store.state.status.compareModelFlag == "생성 중");
+    },
+
     backToHome() {
       this.showModal = false;
       this.$router.push("/");
     },
 
     contour(direction) {
+      this.$store.dispatch('refresh');
       image.startContour(direction);
     },
 
     train() {
-      model.startTrain(localStorage.getItem('name'));
+      model.startTrain(this.$store.state.name);
     },
 
     compare() {
-      model.startCompare(localStorage.getItem('name'));
+      model.startCompare(this.$store.state.name);
     },
 
     getResult() {
-      if (this.comparedImgs.length === 0) {
+      if (this.compared.imgs.length === 0) {
         model.getResult().then((resDto) => {
           this.rate.correct = resDto.correct;
           this.rate.wrong = resDto.wrong;
         });
 
         image.getComparedImgs().then((imgUrls) => {
-          this.comparedImgs = [];
+          this.compared.imgs = [];
+          this.compared.accuracy=[];
           imgUrls.forEach((now, idx, array) => {
-            this.comparedImgs.push(now.url);
+            this.compared.imgs.push(now.url);
+            this.compared.accuracy.push(1);
           });
         });
       } else {
-        this.comparedImgs = [];
+        this.compared.imgs = [];
+        this.compared.accuracy=[];
       }
     },
 

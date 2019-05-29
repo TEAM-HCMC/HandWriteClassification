@@ -15,6 +15,7 @@ public class FileReadUtils {
     private static final Logger log = LoggerFactory.getLogger(FileReadUtils.class);
 
     private static final String ANY_WORDS = ".*";
+    private static final String LOG_REG = "_log.txt";
     private static final String DEFAULT_LOG = "default.txt";
     private static final String DEFAULT_MODEL_ACCURACY = "0";
 
@@ -45,8 +46,9 @@ public class FileReadUtils {
     private String getRegex(String category) {
         StringBuilder sb = new StringBuilder();
         sb.append(ANY_WORDS)
+                .append("_")
                 .append(category)
-                .append(ANY_WORDS);
+                .append(LOG_REG);
         return sb.toString();
     }
 
@@ -59,11 +61,11 @@ public class FileReadUtils {
     }
 
     public String getAccuracy(File file) {
-        String accuracy="0:0";
+        String accuracy = "0:0";
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 accuracy = line;
             }
         } catch (IOException e) {
@@ -77,4 +79,5 @@ public class FileReadUtils {
     private String parsingAccuracy(String accuracy) {
         return accuracy.replace(" ", "").split(":")[1];
     }
+
 }

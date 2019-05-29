@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ContourLogResDto {
+public class CompareContourResDto {
 
     private String created;
     private String flag;
 
-    public ContourLogResDto(File file) {
+    public CompareContourResDto(File file) {
         List<String> logs = getLogs(file);
         this.created = getCreated(logs);
         this.flag = getFlag(logs);
