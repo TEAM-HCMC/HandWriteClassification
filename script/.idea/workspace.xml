@@ -2,10 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56312ea7-8161-42c3-9009-d3877e28a88e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../SpringServer/src/main/resources/static/BMHANNAPro.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SpringServer/src/main/resources/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/ContourLogResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/ContourLogResDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/LogResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/LogResDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/TrainLogResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/TrainLogResDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/FlagEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/LogFlag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/test/java/ac/kr/inu/util/FlagEnumTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/test/java/ac/kr/inu/util/LogFlagTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../VueServer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/Container.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/Container.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/Navigation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/Navigation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/About.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/About.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/SignUp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/SignUp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/status/PostLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/status/PostLogin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/status/PreLogin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/sides/status/PreLogin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VueServer/src/config/serverUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/config/serverUrl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VueServer/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/src/utils/Modal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/utils/Modal.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +31,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/contour.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+            <state relative-caret-position="437">
+              <caret line="41" column="53" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -42,10 +58,10 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contour.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
+            <state relative-caret-position="167">
               <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
             </state>
           </provider>
@@ -75,7 +91,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modelLoad.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
+            <state relative-caret-position="532">
               <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
             </state>
           </provider>
@@ -126,7 +142,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -136,7 +152,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -148,6 +163,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -208,9 +224,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1536" height="864" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.251501" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25115663" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -242,8 +259,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/getResult.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/nonTextClassification.py">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contourAll.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -255,12 +285,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compare.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/modelLoad.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
+        <state relative-caret-position="532">
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
         </state>
       </provider>
@@ -274,33 +301,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/contourAll.sh">
+    <entry file="file://$PROJECT_DIR$/compare.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contour.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="167">
+          <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/contour.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+        <state relative-caret-position="437">
+          <caret line="41" column="53" selection-start-line="41" selection-start-column="53" selection-end-line="41" selection-end-column="53" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/getResult.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.sh">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/contour.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
         </state>
       </provider>
     </entry>

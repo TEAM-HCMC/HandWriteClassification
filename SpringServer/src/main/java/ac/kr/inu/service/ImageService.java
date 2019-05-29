@@ -69,8 +69,8 @@ public class ImageService {
     public Map contourImage(String subDir, Long id) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(NoSuchAccountException::new);
-        String initial = account.getModelName();
-        String trainPath = DEFAULT_SRC_DIR + subDir + initial;
+        String modelName = account.getModelName();
+        String trainPath = DEFAULT_SRC_DIR + subDir + modelName;
 
         String[] callCmd = getContourCallCmd(trainPath, subDir);
         Map map = ShellUtil.execCommand(callCmd);
@@ -115,7 +115,7 @@ public class ImageService {
             Long subNumber = accountImg.getId();
             return "_" + subNumber;
         }
-        return "";
+        return "_compare";
     }
 
     private String[] getContourCallCmd(String path, String subDir) {

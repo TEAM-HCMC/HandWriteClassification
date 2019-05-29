@@ -8,6 +8,7 @@ import ac.kr.inu.exception.AlreadyNameExistException;
 import ac.kr.inu.repository.AccountRepository;
 import ac.kr.inu.repository.ModelRepository;
 import ac.kr.inu.util.DirInfo;
+import ac.kr.inu.util.DirUtil;
 import ac.kr.inu.util.FileReadUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,6 +24,7 @@ public class AccountService {
 
     private static final String TRAIN = "train";
     private static final String CONTOUR = "contour";
+    private static final String COMPARE = "compare";
 
     private final AccountRepository accountRepository;
     private final ModelRepository modelRepository;
@@ -36,6 +38,7 @@ public class AccountService {
         Account account = saveReqDto.toAccountEntity(bCryptPasswordEncoder, model);
         modelRepository.save(model);
         accountRepository.save(account);
+        DirUtil.mkDir(DirInfo.LOG + account.getModelName());
         return true;
     }
 
@@ -56,7 +59,15 @@ public class AccountService {
                 .orElseThrow(NoSuchElementException::new);
         LogResDto logResDto = getLog(account);
 
-        return new AccountInfoResDto(account, logResDto);
+        ModelAccuracyResDto accuracyResDto = getModelAccuracy(account);
+
+        return new AccountInfoResDto(account, logResDto, accuracyResDto);
+    }
+
+    public ModelAccuracyResDto getModelAccuracy(Account account) {
+        FileReadUtils fileReadUtils = new FileReadUtils();
+        File accuracyFile = fileReadUtils.getAccuracyFile(account.getModelName());
+        return new ModelAccuracyResDto(fileReadUtils.getAccuracy(accuracyFile));
     }
 
     public LogResDto getLog(Account account) {
@@ -66,8 +77,13 @@ public class AccountService {
 
         TrainLogResDto trainLogResDto = new TrainLogResDto(fileReadUtils.findCategoryLogFile(files, TRAIN));
         ContourLogResDto contourLogResDto = new ContourLogResDto(fileReadUtils.findCategoryLogFile(files, CONTOUR));
+        CompareResDto compareResDto = new CompareResDto(fileReadUtils.findCategoryLogFile(files, COMPARE));
 
-        return new LogResDto(trainLogResDto, contourLogResDto);
+        return LogResDto.builder()
+                .compare(compareResDto)
+                .contour(contourLogResDto)
+                .train(trainLogResDto)
+                .build();
     }
 
 }

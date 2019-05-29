@@ -26,7 +26,7 @@ import static ac.kr.inu.util.DirInfo.*;
 @RequiredArgsConstructor
 public class ModelService {
 
-    private static final String UPLOAD_S3_REG = "([0-9]*)\\..*";
+    private static final String UPLOAD_S3_REG = "([0-9]*_[0-9]*)\\..*";
 
     private final AccountRepository accountRepository;
     private final ComparedImgRepository comparedImgRepository;
@@ -63,16 +63,31 @@ public class ModelService {
         String outputImageReg = name + UPLOAD_S3_REG;
 
         File dirFile = new File(outputPath);
+
         Arrays.stream(dirFile.listFiles())
                 .filter(file -> file.getName().matches(outputImageReg))
-                .forEach(file -> {
-                    String url = s3Uploader.upload(file, S3_RESULT + name);
-                    saveOnDatabase(url, account);
-                });
+                .forEach(file -> saveFile(file, account, name));
     }
 
-    private void saveOnDatabase(String url, Account account) {
-        comparedImgRepository.save(new ComparedImg(url, account));
+    private void saveFile(File file, Account account, String name) {
+        String url = s3Uploader.upload(file, S3_RESULT + name);
+        String percentage = getPercentage(file, 2);
+        if (isZero(file)) {
+            percentage = getPercentage(file, 1);
+        }
+        saveOnDatabase(url, percentage, account);
+    }
+
+    private boolean isZero(File file) {
+        return file.getName().split("_")[1].substring(0, 1).equals("0");
+    }
+
+    private String getPercentage(File file, int length) {
+        return file.getName().split("_")[1].substring(0, length);
+    }
+
+    private void saveOnDatabase(String url, String percentage, Account account) {
+        comparedImgRepository.save(new ComparedImg(url, percentage, account));
     }
 
 

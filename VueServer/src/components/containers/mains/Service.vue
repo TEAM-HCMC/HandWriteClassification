@@ -1,6 +1,7 @@
 <style lang="css" scoped>
 
 .service {
+  font-family: 'BMHANNAPro';
     height: 100%;
     width: 80%;
     margin: 0 auto;
@@ -71,11 +72,12 @@ li {
 
 .input_train_image {
   padding-top: 1vh;
+  height: 30vh;
     overflow: auto;
 }
 
 .input_compare_image {
-    height: 100%;
+    height: 30vh;
     overflow: auto;
 }
 
@@ -116,6 +118,10 @@ i {
   width: 100%;
   height: 100%;
   padding-top: 20vh;
+}
+
+button{
+  width: auto;
 }
 
 </style>
@@ -232,10 +238,10 @@ i {
 
     <div class="myModal">
         <myModal v-if="showModal" v-on:click="backToHome">
-            <h3 slot="header">경고</h3>
+            <h3 slot="header">로그인 해주세요!</h3>
             <span slot="body">로그인 후 이용할 수 있습니다.</span>
             <span slot="footer" v-on:click="backToHome">
-        로그인 하십시오.
+        확인
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
         </myModal>

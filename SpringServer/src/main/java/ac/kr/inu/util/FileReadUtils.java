@@ -1,5 +1,8 @@
 package ac.kr.inu.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -9,8 +12,11 @@ import java.util.List;
 
 public class FileReadUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(FileReadUtils.class);
+
     private static final String ANY_WORDS = ".*";
     private static final String DEFAULT_LOG = "default.txt";
+    private static final String DEFAULT_MODEL_ACCURACY = "0";
 
     public static void addLogs(List<String> logs, File file) {
         try {
@@ -46,5 +52,29 @@ public class FileReadUtils {
 
     private File getDefaultLogFile() {
         return new File(DirInfo.LOG + DEFAULT_LOG);
+    }
+
+    public File getAccuracyFile(String modelName) {
+        return new File(DirInfo.OUTPUT + modelName + "_accuracy.txt");
+    }
+
+    public String getAccuracy(File file) {
+        String accuracy="0:0";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = br.readLine()) != null){
+                accuracy = line;
+            }
+        } catch (IOException e) {
+            log.info("학습된 모델 없음.");
+            return DEFAULT_MODEL_ACCURACY;
+        }
+
+        return parsingAccuracy(accuracy);
+    }
+
+    private String parsingAccuracy(String accuracy) {
+        return accuracy.replace(" ", "").split(":")[1];
     }
 }

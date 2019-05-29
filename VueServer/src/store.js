@@ -10,7 +10,62 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
 
+  state: {
+    status: {
+      trainImageFlag: null,
+      trainImageCreated: null,
+      compareImageFlag: null,
+      compareImageCreated: null,
+      trainModelFlag: null,
+      trainModelCreated: null,
+      modelAccuracy: null,
+    },
+  },
+
   mutations: {
+
+    //setter
+    setTrainImageFlag(state, payload) {
+      return state.status.trainImageFlag = payload.flag;
+    },
+    setTrainImageCreated(state, payload) {
+      return state.status.trainImageCreated = payload.created;
+    },
+    setCompareImageFlag(state, payload) {
+      return state.status.compareImageFlag = payload.flag;
+    },
+    setCompareImageCreated(state, payload) {
+      return state.status.compareImageCreated = payload.created;
+    },
+    setTrainModelFlag(state, payload) {
+      return state.status.trainModelFlag = payload.flag;
+    },
+    setTrainModelCreated(state, payload) {
+      return state.status.trainModelCreated = payload.created;
+    },
+    setModelAccuracy(state, payload) {
+      return state.status.modelAccuracy = payload.accuracy;
+    },
+
+    // //getter
+    // getTrainImageFlag(state) {
+    //   return state.status.trainImageFlag;
+    // },
+    // getTrainImageCreated(state) {
+    //   return state.status.trainImageCreated;
+    // },
+    // getCompareImageFlag(state) {
+    //   return state.status.compareImageFlag;
+    // },
+    // getCompareImageCreated(state) {
+    //   return state.status.compareImageCreated;
+    // },
+    // getTrainModelFlag(state) {
+    //   return state.status.trainModelFlag;
+    // },
+    // getTrainModelCreated(state) {
+    //   return state.status.trainModelCreated;
+    // },
 
     logout: function(state) {
       cookieUtils.deleteCookie('jwt');
@@ -35,8 +90,8 @@ export const store = new Vuex.Store({
       };
 
       var resDto = {
-        status:null,
-        message:'로그인 성공',
+        status: null,
+        message: '로그인 성공',
       }
 
       return new Promise((resolve, reject) => {

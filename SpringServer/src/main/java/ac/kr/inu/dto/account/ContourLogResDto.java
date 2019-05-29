@@ -1,7 +1,7 @@
 package ac.kr.inu.dto.account;
 
 import ac.kr.inu.util.FileReadUtils;
-import ac.kr.inu.util.FlagEnum;
+import ac.kr.inu.util.LogFlag;
 import lombok.Getter;
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class ContourLogResDto {
     private String getFlag(List<String> logs) {
         int lastIdx = logs.size();
         int flag = Integer.valueOf(logs.get(lastIdx - 1).split("=")[1]);
-        return FlagEnum.findMessageByFlag(flag);
+        return LogFlag.findMessageByFlag(flag);
     }
 
 }

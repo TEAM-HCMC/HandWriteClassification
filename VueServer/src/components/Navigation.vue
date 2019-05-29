@@ -1,16 +1,18 @@
 <style lang="css" scoped>
 
 .nav_area {
+    font-family: 'BMHANNAPro';
     background-color: #ffffff;
     background-color: rgba( 255, 255, 255, 0);
     position: fixed;
     width: 80%;
     top: 0;
     z-index: 10;
+    
 }
 
 .nav_bar {
-  width: 80%;
+    width: 80%;
     font-weight: bold;
     overflow: hidden;
     color: #2F3B52;
@@ -80,7 +82,5 @@
 </template>
 
 <script>
-
 export default {}
-
 </script>

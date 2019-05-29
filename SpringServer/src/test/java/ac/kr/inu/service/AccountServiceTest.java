@@ -2,6 +2,7 @@ package ac.kr.inu.service;
 
 import ac.kr.inu.domain.Account;
 import ac.kr.inu.dto.account.LogResDto;
+import ac.kr.inu.dto.account.ModelAccuracyResDto;
 import ac.kr.inu.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -30,6 +31,13 @@ public class AccountServiceTest {
         Account account = accountRepository.findAll().get(0);
 
         LogResDto logResDto = accountService.getLog(account);
+    }
+
+    @Test
+    public void 모델정확도_가져오기() {
+        Account account = accountRepository.findAll().get(0);
+        ModelAccuracyResDto accuracyResDto = accountService.getModelAccuracy(account);
+        System.out.println(accuracyResDto.getAccuracy());
     }
 }
 

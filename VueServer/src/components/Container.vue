@@ -21,6 +21,8 @@
 
 .content-right {
     width: 20%;
+    height: 100%;
+    box-shadow: 3px -3px 3px -1px #42b983 inset;
 }
 
 /* .shadow {

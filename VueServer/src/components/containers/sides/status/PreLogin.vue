@@ -1,13 +1,13 @@
 <style lang="css" scoped>
 
-.preLogin{
-  width: 100%;
-}
-
-.container {
+.preLogin {
     width: 100%;
 }
 
+.container {
+    font-family: 'BMHANNAPro';
+    width: 100%;
+}
 
 </style>
 
@@ -29,11 +29,12 @@
                         <input type="password" class="form-control" name="password" placeholder="Password" v-model="accountLoginReqDto.password">
                     </div>
                     <div>
-                      <br>
+                        <br>
                         <button type="button" v-on:click="login" class="form-control btn btn-primary">로그인</button>
-                        <br><br>
+                        <br>
+                        <br>
                         <router-link to="/signup">
-                          <button type="button" class="form-control btn btn-primary">회원가입</button>
+                            <button type="button" class="form-control btn btn-primary">회원가입</button>
                         </router-link>
 
                     </div>
@@ -80,6 +81,7 @@ export default {
         .then((resDto) => {
           if (resDto.status === 201) {
             location.reload();
+            location.replace("/");
           } else {
             console.log("로그인실패.");
             this.bodyMessage = resDto.message;
