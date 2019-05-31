@@ -1,15 +1,18 @@
 <style lang="css" scoped>
 
 .nav_area {
+    font-family: 'BMHANNAPro';
     background-color: #ffffff;
     background-color: rgba( 255, 255, 255, 0);
     position: fixed;
-    width: 80vh;
+    width: 80%;
     top: 0;
     z-index: 10;
+    
 }
 
 .nav_bar {
+    width: 80%;
     font-weight: bold;
     overflow: hidden;
     color: #2F3B52;
@@ -25,7 +28,6 @@
 .uol>li {
     float: left;
     width: 10vw;
-    height: 10vw;
 }
 
 .vertical_align {
@@ -34,8 +36,8 @@
 }
 
 .logo {
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
 }
 
 </style>
@@ -80,7 +82,5 @@
 </template>
 
 <script>
-
 export default {}
-
 </script>

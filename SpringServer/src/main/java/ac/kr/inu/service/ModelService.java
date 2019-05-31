@@ -12,6 +12,7 @@ import ac.kr.inu.util.ShellUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.util.Arrays;
@@ -19,16 +20,14 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static ac.kr.inu.service.ShellInfo.*;
-import static ac.kr.inu.util.DirInfo.COMPARE;
-import static ac.kr.inu.util.DirInfo.S3_RESULT;
-import static ac.kr.inu.util.DirInfo.TRAIN;
+import static ac.kr.inu.util.DirInfo.*;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ModelService {
 
-    private static final String UPLOAD_S3_REG = "([0-9]*)\\..*";
+    private static final String UPLOAD_S3_REG = "([0-9]*_[0-9]*)\\..*";
 
     private final AccountRepository accountRepository;
     private final ComparedImgRepository comparedImgRepository;
@@ -41,10 +40,11 @@ public class ModelService {
         return map;
     }
 
+    @Transactional
     public Map compareModel(Long accountId) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(NoSuchAccountException::new);
-        String name = account.getName();
+        String name = account.getModelName();
 
         String[] callCmd = ShellUtil.getBashCmd(COMPARE_SHELL, COMPARE + name);
         Map map = ShellUtil.execCommand(callCmd);
@@ -55,36 +55,43 @@ public class ModelService {
         return map;
     }
 
-    private void removeAlreadyComparedImages(Account account) {
+    @Transactional
+    public void removeAlreadyComparedImages(Account account) {
         comparedImgRepository.deleteAllByAccount(account);
     }
 
+    @Transactional
     public void uploadCompareImageResult(Account account) {
         String outputPath = DirInfo.OUTPUT;
-        String name = account.getName();
+        String name = account.getModelName();
         String outputImageReg = name + UPLOAD_S3_REG;
 
         File dirFile = new File(outputPath);
+
         Arrays.stream(dirFile.listFiles())
                 .filter(file -> file.getName().matches(outputImageReg))
-                .forEach(file -> {
-                    String url = s3Uploader.upload(file, S3_RESULT + name);
-                    saveOnDatabase(url, account);
-                });
+                .forEach(file -> saveFile(file, account, name));
     }
 
-    private void saveOnDatabase(String url, Account account) {
-        comparedImgRepository.save(new ComparedImg(url, account));
+    private void saveFile(File file, Account account, String name) {
+        String url = s3Uploader.upload(file, S3_RESULT + name);
+        String percentage = getPercentage(file, 2);
+        if (isZero(file)) {
+            percentage = getPercentage(file, 1);
+        }
+        saveOnDatabase(url, percentage, account);
     }
 
+    private boolean isZero(File file) {
+        return file.getName().split("_")[1].substring(0, 1).equals("0");
+    }
 
-    public Map watchTraining(Long id) {
-        String name = getAccountName(id);
+    private String getPercentage(File file, int length) {
+        return file.getName().split("_")[1].substring(0, length);
+    }
 
-        String[] callCmd = ShellUtil.getBashCmd(TRAIN_WATCH_SHELL, name);
-        Map map = ShellUtil.execCommand(callCmd);
-
-        return ShellUtil.getFailResult();
+    private void saveOnDatabase(String url, String percentage, Account account) {
+        comparedImgRepository.save(new ComparedImg(url, percentage, account));
     }
 
     public CompareResultResDto getCompareResult(Long id) {
@@ -100,6 +107,6 @@ public class ModelService {
     private String getAccountName(Long accountId) {
         return accountRepository.findById(accountId)
                 .orElseThrow(NoSuchElementException::new)
-                .getName();
+                .getModelName();
     }
 }

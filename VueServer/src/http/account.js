@@ -32,16 +32,11 @@ var getAccountInfo = function getAccountInfo(callback) {
       'jwt': cookieUtils.getJwt(),
     }
   };
-  var resDto = {
-    email: "",
-    name: ""
-  }
+  
   return new Promise((resolve, reject) => {
     axios.get(baseUrl + '/account', reqHeader)
       .then((res) => {
-        resDto.email = res.data.email;
-        resDto.name = res.data.name;
-        resolve(resDto);
+        resolve(res.data);
       })
       .catch((error) => {
         console.log(error);

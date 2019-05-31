@@ -45,7 +45,7 @@ public class Account {
         this.accountRole = AccountRole.USER;
     }
 
-    public String getName(){
+    public String getModelName() {
         return model.getName();
     }
 

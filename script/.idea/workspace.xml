@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56312ea7-8161-42c3-9009-d3877e28a88e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/config/CommonConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/config/CommonConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ImageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ImageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ModelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/controller/ModelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/domain/AccountImg.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/domain/AccountImg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/repository/AccountImgRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/repository/AccountImgRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/security/context/AccountContextService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/security/context/AccountContextService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/ModelAccuracyResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/account/ModelAccuracyResDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/compare/CompareResultResDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/dto/compare/CompareResultResDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ModelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/service/ModelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/FileSaveUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SpringServer/src/main/java/ac/kr/inu/util/FileSaveUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/components/containers/mains/Service.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../VueServer/src/http/model.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/src/http/model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../originalSource/train/pci.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../originalSource/train/pci_3.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../VueServer/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../VueServer/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CNN_Class.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/contour.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-399">
-              <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+            <state relative-caret-position="228">
+              <caret line="30" column="72" lean-forward="true" selection-start-line="30" selection-start-column="72" selection-end-line="30" selection-end-column="72" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -38,15 +31,20 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/contour.py">
+        <entry file="file://$PROJECT_DIR$/CNN_Class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+            <state relative-caret-position="437">
+              <caret line="54" column="8" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/train.sh">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -57,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/contour.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+            <state relative-caret-position="361">
+              <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -67,7 +65,7 @@
         <entry file="file://$PROJECT_DIR$/contourAll.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
             </state>
           </provider>
         </entry>
@@ -75,7 +73,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
+            <state relative-caret-position="38">
               <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
@@ -84,11 +82,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modelLoad.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
+            <state relative-caret-position="532">
               <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/contour_bak.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -137,6 +146,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -148,7 +158,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,9 +219,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1536" height="864" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.251501" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2508339" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -234,50 +242,33 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/learn.py" />
     <entry file="file://$PROJECT_DIR$/isitText.py" />
-    <entry file="file://$PROJECT_DIR$/contour.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/getResult.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.sh">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/nonTextClassification.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/contour.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        <state relative-caret-position="361">
+          <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/compare.sh">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/contourAll.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
+        <state relative-caret-position="38">
           <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CNN_Class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-399">
-          <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -286,8 +277,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modelLoad.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
+        <state relative-caret-position="532">
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contour_bak.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/compare.sh">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CNN_Class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="54" column="8" lean-forward="true" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/contour.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="30" column="72" lean-forward="true" selection-start-line="30" selection-start-column="72" selection-end-line="30" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

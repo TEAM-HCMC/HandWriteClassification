@@ -1,45 +1,65 @@
 <style lang="css" scoped>
 
-.sign {
-    display: inline-block;
+.preLogin {
+    width: 100%;
+}
+
+.container {
+    font-family: 'BMHANNAPro';
+    width: 100%;
 }
 
 </style>
 
 <template lang="html">
 
-<div class="login_form">
-    <div class="input_id">
-        ID :
-        <input type="text" placeholder="email을 입력하세요." v-model="accountLoginReqDto.email">
-    </div>
-    <div class="input_password">
-        PW :
-        <input type="password" v-model="accountLoginReqDto.password">
-    </div>
-    <div class="sign">
-        <button v-on:click="login">로그인</button>
-        <router-link to="/signup">
-            <button>회원가입</button>
-        </router-link>
+<div class="preLogin">
+
+    <div class="container">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-title">로그인</div>
+            </div>
+            <div class="panel-body">
+                <form id="login-form">
+                    <div>
+                        <input type="text" class="form-control" name="username" placeholder="Email" v-model="accountLoginReqDto.email" autofocus>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="password" placeholder="Password" v-model="accountLoginReqDto.password">
+                    </div>
+                    <div>
+                        <br>
+                        <button type="button" v-on:click="login" class="form-control btn btn-primary">로그인</button>
+                        <br>
+                        <br>
+                        <router-link to="/signup">
+                            <button type="button" class="form-control btn btn-primary">회원가입</button>
+                        </router-link>
+
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    <div class="modal">
-        <modal v-if="showModal" v-on:click="modalOk">
+    <div class="myModal">
+        <myModal v-if="showModal" v-on:click="modalOk">
             <h3 slot="header">경고</h3>
             <span slot="body">{{bodyMessage}}</span>
             <span slot="footer" v-on:click="modalOk">
-        아이디 및 비밀번호를 확인하십시오.
+        ID 및 PW를 확인하십시오.
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
-        </modal>
+        </myModal>
     </div>
+
 </div>
 
 </template>
 
 <script>
-import modal from '../../../../utils/Modal.vue'
+import myModal from '../../../../utils/Modal.vue'
 
 export default {
 
@@ -56,13 +76,16 @@ export default {
 
   methods: {
     login() {
+      console.log("로그인 중...");
       this.$store.dispatch('login', this.accountLoginReqDto)
         .then((resDto) => {
-          if(resDto.status===201){
+          if (resDto.status === 201) {
             location.reload();
-          }else{
-            this.bodyMessage=resDto.message;
-            this.showModal=true;
+            location.replace("/");
+          } else {
+            console.log("로그인실패.");
+            this.bodyMessage = resDto.message;
+            this.showModal = true;
           }
         });
     },
@@ -74,7 +97,7 @@ export default {
   },
 
   components: {
-    modal
+    myModal
   },
 }
 </script>

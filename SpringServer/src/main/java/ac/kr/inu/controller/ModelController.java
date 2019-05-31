@@ -42,14 +42,6 @@ public class ModelController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/train")
-    public ResponseEntity<String> watchLearning(@ApiIgnore Authentication auth) {
-        Long accountId = Long.parseLong(auth.getPrincipal().toString());
-        Map result = modelService.watchTraining(accountId);
-
-        return ResponseEntity.ok("");
-    }
-
     @GetMapping("/compare")
     @ApiImplicitParams({@ApiImplicitParam(name = "jwt", value = "JWT Token", required = true, dataType = "string", paramType = "header")})
     public ResponseEntity<CompareResultResDto> getCompareResult(@ApiIgnore Authentication auth) {

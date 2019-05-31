@@ -6,15 +6,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CommonConfig {
 
     public static List getCheckedList(List list) {
-        if (list == null) {
-            return new ArrayList();
-        }
-        return list;
+        return Optional.ofNullable(list)
+                .orElseGet(ArrayList::new);
     }
 
     @Bean

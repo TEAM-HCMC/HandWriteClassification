@@ -1,7 +1,10 @@
 <style lang="css" scoped>
 
 .service {
+    font-family: 'BMHANNAPro';
     height: 100%;
+    width: 80%;
+    margin: 0 auto;
     position: relative;
 }
 
@@ -12,7 +15,6 @@
 }
 
 .description {
-    padding-top: 5vh;
     font-weight: bold;
     font-size: 1.4vw;
 }
@@ -59,28 +61,28 @@ li {
 }
 
 .step {
-  position: relative;
-  height: 100vh;
+    position: relative;
+    height: 100vh;
 }
 
 .train {
     padding-top: 20vh;
-    height: 20vh;
+    height: 20%;
 }
 
 .input_train_image {
-  padding-top: 1em;
-    height: 100%;
+    padding-top: 1vh;
+    height: 30vh;
     overflow: auto;
 }
 
 .input_compare_image {
-    height: 100%;
+    height: 30vh;
     overflow: auto;
 }
 
 .image_ok {
-    padding-top: 20vh;
+    padding-top: 19vh;
 }
 
 .arrow_down {
@@ -93,6 +95,8 @@ li {
 .arrow_up {
     display: block;
     width: 100%;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
 }
 
 i {
@@ -110,10 +114,15 @@ i {
     padding-top: 20vh;
 }
 
-.result{
-  width: 100%;
-  height: 100%;
-  padding-top: 20vh;
+.result {
+    width: 100%;
+    height: 100%;
+    padding-top: 20vh;
+    overflow: auto;
+}
+
+button {
+    width: auto;
 }
 
 </style>
@@ -135,7 +144,8 @@ i {
 
             <div class="image_ok">
                 <div class="showStep2">
-                    <button v-on:click="contour('train/')">이미지 업로드 완료</button>
+                    <button class="form-control btn btn-primary" v-if="!isTrainImageMaking()" v-on:click="contour('train/')">이미지 업로드 완료</button>
+                    <button class="form-control btn btn-primary" v-if="isTrainImageMaking()">이미지 업로드 중</button>
                 </div>
             </div>
 
@@ -167,7 +177,8 @@ i {
 
         <div class="image_ok">
             <div class="showStep4">
-                <button v-on:click="contour('compare/')">이미지 업로드 완료</button>
+                <button class="form-control btn btn-primary" v-if="!isCompareImageMaking()" v-on:click="contour('compare/')">이미지 업로드 완료</button>
+                <button class="form-control btn btn-primary" v-if="isCompareImageMaking()">이미지 업로드 중</button>
             </div>
         </div>
 
@@ -181,22 +192,29 @@ i {
 
         <div class="model">
 
-          <div class="arrow_up">
-              <i class="fas fa-angle-up fa-4x" v-on:click="third_back"></i>
-          </div>
+            <div class="arrow_up">
+                <i class="fas fa-angle-up fa-4x" v-on:click="third_back"></i>
+            </div>
 
             <div class="train_model">
                 <div class="description">
-                    모델 학습 시키기
                 </div>
-                <button v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-if="!isExistTrainImage()">학습을 위한 이미지가 없습니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainImage()&&!isTrainModelMaking()" v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-if="isTrainModelMaking()">모델 학습 중</button>
             </div>
-
+            <br>
+            <br>
+            <br>
+            <br>
             <div class="compare_model">
                 <div class="description">
-                    필적 검증 하기
                 </div>
-                <button v-on:click="compare">필적 검증 시작</button>
+                <!-- isExistCompareImage -->
+                <button class="form-control btn btn-primary" v-if="!isExistTrainModel()">학습된 모델이 필요합니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainModel()&&!isExistCompareImage()">검증대상 이미지가 필요합니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainModel()&&isExistCompareImage()&&!isCompareModelMaking()" v-on:click="compare">필적 검증 시작</button>
+                <button class="form-control btn btn-primary" v-if="isCompareModelMaking()">필적 검증 중</button>
             </div>
 
         </div>
@@ -210,35 +228,39 @@ i {
     <div class="fourth step">
 
         <div class="result">
-          <div class="arrow_up">
-              <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
-          </div>
+            <div class="arrow_up">
+                <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
+            </div>
 
-            <button v-on:click="getResult">결과확인</button>
+            <button class="form-control btn btn-primary" v-if="!isExistCompareModel()" >검증한 이미지 존재하지 않습니다.</button>
+            <button class="form-control btn btn-primary" v-if="isExistCompareModel()" v-on:click="getResult">결과확인</button>
+            <br><br>
             <div class="correct">
                 {{rate.correct}}
             </div>
             <div class="wrong">
                 {{rate.wrong}}
             </div>
+            <br><br>
             <transition-group name="list" tag="ul">
-                <li v-for="comparedImg in comparedImgs" :key="comparedImg">
-                    <img class="imgs" :src="comparedImg" />
+                <li v-for="(img,index) in compared.imgs" :key="img">
+                    <span>{{compared.accuracy[index]}}</span>
+                    <img class="imgs" :src="img" />
                 </li>
             </transition-group>
         </div>
 
     </div>
 
-    <div class="modal">
-        <modal v-if="showModal" v-on:click="backToHome">
-            <h3 slot="header">경고</h3>
+    <div class="myModal">
+        <myModal v-if="showModal" v-on:click="backToHome">
+            <h3 slot="header">로그인 해주세요!</h3>
             <span slot="body">로그인 후 이용할 수 있습니다.</span>
             <span slot="footer" v-on:click="backToHome">
-        로그인 하십시오.
+        확인
         <i class="closeModalBtn fas fa-times" aria-hidden="true"></i>
       </span>
-        </modal>
+        </myModal>
     </div>
 
 </div>
@@ -246,7 +268,7 @@ i {
 </template>
 
 <script>
-import modal from '../../../utils/Modal.vue'
+import myModal from '../../../utils/Modal.vue'
 
 const fileUtils = require('../../../config/filepond');
 const image = require('../../../http/image');
@@ -264,7 +286,11 @@ export default {
         'correct': "",
         'wrong': ""
       },
-      comparedImgs: [],
+      compared: {
+        imgs: [],
+        accuracy: [],
+      },
+
       showModal: false,
     };
   },
@@ -273,6 +299,15 @@ export default {
     if (cookieUtils.getJwt() === null) {
       this.showModal = true;
     }
+  },
+
+  mounted() {
+    var secondDiv = document.getElementsByClassName("second");
+    secondDiv[0].style.display = "none";
+    var thirdDiv = document.getElementsByClassName("third");
+    thirdDiv[0].style.display = "none";
+    var fourthDiv = document.getElementsByClassName("fourth");
+    fourthDiv[0].style.display = "none";
   },
 
   methods: {
@@ -319,38 +354,77 @@ export default {
       fourthDiv[0].style.display = "none";
     },
 
+    isTrainImageMaking() {
+      return (this.$store.state.status.trainImageFlag == "생성 중");
+    },
+    isExistTrainImage() {
+      return (this.$store.state.status.trainImageFlag == "생성 완료");
+    },
+
+    isCompareImageMaking() {
+      return (this.$store.state.status.compareImageFlag == "생성 중");
+    },
+    isExistCompareImage() {
+      return (this.$store.state.status.compareImageFlag == "생성 완료");
+    },
+
+    isTrainModelMaking() {
+      return (this.$store.state.status.trainModelFlag == "생성 중");
+    },
+    isCompareModelMaking() {
+      return (this.$store.state.status.compareModelFlag == "생성 중");
+    },
+    isExistTrainModel() {
+      return (this.$store.state.status.trainModelFlag == "생성 완료");
+    },
+    isExistCompareModel() {
+      return (this.$store.state.status.compareModelFlag == "생성 완료");
+    },
+
     backToHome() {
       this.showModal = false;
       this.$router.push("/");
     },
 
     contour(direction) {
+      if (direction == "train/") {
+        this.$store.state.status.trainImageFlag = "생성 중";
+      } else {
+        this.$store.state.status.compareImageFlag = "생성 중";
+      }
       image.startContour(direction);
     },
 
     train() {
-      model.startTrain(localStorage.getItem('name'));
+      this.$store.state.status.trainModelFlag = "생성 중";
+      model.startTrain(this.$store.state.name);
     },
 
     compare() {
-      model.startCompare(localStorage.getItem('name'));
+      this.$store.state.status.compareModelFlag = "생성 중";
+      model.startCompare(this.$store.state.name);
     },
 
     getResult() {
-      if (this.comparedImgs.length === 0) {
+      if (this.compared.imgs.length === 0) {
         model.getResult().then((resDto) => {
           this.rate.correct = resDto.correct;
           this.rate.wrong = resDto.wrong;
         });
 
         image.getComparedImgs().then((imgUrls) => {
-          this.comparedImgs = [];
+          this.compared.imgs = [];
+          this.compared.accuracy = [];
           imgUrls.forEach((now, idx, array) => {
-            this.comparedImgs.push(now.url);
+            this.compared.imgs.push(now.url);
+            this.compared.accuracy.push(now.accuracy);
           });
         });
       } else {
-        this.comparedImgs = [];
+        this.rate.correct = "";
+        this.rate.wrong = "";
+        this.compared.imgs = [];
+        this.compared.accuracy = [];
       }
     },
 
@@ -509,7 +583,7 @@ export default {
   },
   components: {
     fileUtils,
-    modal
+    myModal
   },
 
 }
