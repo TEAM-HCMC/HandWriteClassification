@@ -94,16 +94,6 @@ public class ModelService {
         comparedImgRepository.save(new ComparedImg(url, percentage, account));
     }
 
-
-    public Map watchTraining(Long id) {
-        String name = getAccountName(id);
-
-        String[] callCmd = ShellUtil.getBashCmd(TRAIN_WATCH_SHELL, name);
-        Map map = ShellUtil.execCommand(callCmd);
-
-        return ShellUtil.getFailResult();
-    }
-
     public CompareResultResDto getCompareResult(Long id) {
         String name = getAccountName(id);
 

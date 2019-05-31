@@ -15,6 +15,9 @@ public class ModelAccuracyResDto {
         if(accuracy.equals("0")){
             return accuracy+"%";
         }
+        if(accuracy.equals("1.0")){
+            return "100%";
+        }
         return accuracy.substring(2, 4) + "%";
     }
 }

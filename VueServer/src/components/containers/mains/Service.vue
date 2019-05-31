@@ -1,7 +1,7 @@
 <style lang="css" scoped>
 
 .service {
-  font-family: 'BMHANNAPro';
+    font-family: 'BMHANNAPro';
     height: 100%;
     width: 80%;
     margin: 0 auto;
@@ -61,8 +61,8 @@ li {
 }
 
 .step {
-  position: relative;
-  height: 100vh;
+    position: relative;
+    height: 100vh;
 }
 
 .train {
@@ -71,8 +71,8 @@ li {
 }
 
 .input_train_image {
-  padding-top: 1vh;
-  height: 30vh;
+    padding-top: 1vh;
+    height: 30vh;
     overflow: auto;
 }
 
@@ -114,17 +114,16 @@ i {
     padding-top: 20vh;
 }
 
-.result{
-  width: 100%;
-  height: 100%;
-  padding-top: 20vh;
-  overflow: auto;
+.result {
+    width: 100%;
+    height: 100%;
+    padding-top: 20vh;
+    overflow: auto;
 }
 
-button{
-  width: auto;
+button {
+    width: auto;
 }
-
 
 </style>
 
@@ -179,7 +178,7 @@ button{
         <div class="image_ok">
             <div class="showStep4">
                 <button class="form-control btn btn-primary" v-if="!isCompareImageMaking()" v-on:click="contour('compare/')">이미지 업로드 완료</button>
-                <button class="form-control btn btn-primary" v-if="isCompareImageMaking()" >이미지 업로드 중</button>
+                <button class="form-control btn btn-primary" v-if="isCompareImageMaking()">이미지 업로드 중</button>
             </div>
         </div>
 
@@ -193,21 +192,28 @@ button{
 
         <div class="model">
 
-          <div class="arrow_up">
-              <i class="fas fa-angle-up fa-4x" v-on:click="third_back"></i>
-          </div>
+            <div class="arrow_up">
+                <i class="fas fa-angle-up fa-4x" v-on:click="third_back"></i>
+            </div>
 
             <div class="train_model">
                 <div class="description">
                 </div>
-                <button class="form-control btn btn-primary" v-if="!isTrainModelMaking()" v-on:click="train">모델 학습 시작</button>
-                <button class="form-control btn btn-primary" v-if="isTrainModelMaking()" >모델 학습 중</button>
+                <button class="form-control btn btn-primary" v-if="!isExistTrainImage()">학습을 위한 이미지가 없습니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainImage()&&!isTrainModelMaking()" v-on:click="train">모델 학습 시작</button>
+                <button class="form-control btn btn-primary" v-if="isTrainModelMaking()">모델 학습 중</button>
             </div>
-            <br><br><br><br>
+            <br>
+            <br>
+            <br>
+            <br>
             <div class="compare_model">
                 <div class="description">
                 </div>
-                <button class="form-control btn btn-primary" v-if="!isCompareModelMaking()" v-on:click="compare">필적 검증 시작</button>
+                <!-- isExistCompareImage -->
+                <button class="form-control btn btn-primary" v-if="!isExistTrainModel()">학습된 모델이 필요합니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainModel()&&!isExistCompareImage()">검증대상 이미지가 필요합니다.</button>
+                <button class="form-control btn btn-primary" v-if="isExistTrainModel()&&isExistCompareImage()&&!isCompareModelMaking()" v-on:click="compare">필적 검증 시작</button>
                 <button class="form-control btn btn-primary" v-if="isCompareModelMaking()">필적 검증 중</button>
             </div>
 
@@ -222,20 +228,24 @@ button{
     <div class="fourth step">
 
         <div class="result">
-          <div class="arrow_up">
-              <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
-          </div>
+            <div class="arrow_up">
+                <i class="fas fa-angle-up fa-4x" v-on:click="fourth_back"></i>
+            </div>
 
-            <button class="form-control btn btn-primary" v-on:click="getResult">결과확인</button>
+            <button class="form-control btn btn-primary" v-if="!isExistCompareModel()" >검증한 이미지 존재하지 않습니다.</button>
+            <button class="form-control btn btn-primary" v-if="isExistCompareModel()" v-on:click="getResult">결과확인</button>
+            <br><br>
             <div class="correct">
                 {{rate.correct}}
             </div>
             <div class="wrong">
                 {{rate.wrong}}
             </div>
+            <br><br>
             <transition-group name="list" tag="ul">
-                <li v-for="each in compared.imgs" :key="each">
-                    <img class="imgs" :src="each" />
+                <li v-for="(img,index) in compared.imgs" :key="img">
+                    <span>{{compared.accuracy[index]}}</span>
+                    <img class="imgs" :src="img" />
                 </li>
             </transition-group>
         </div>
@@ -276,9 +286,9 @@ export default {
         'correct': "",
         'wrong': ""
       },
-      compared:{
+      compared: {
         imgs: [],
-        accuracy:[],
+        accuracy: [],
       },
 
       showModal: false,
@@ -347,14 +357,28 @@ export default {
     isTrainImageMaking() {
       return (this.$store.state.status.trainImageFlag == "생성 중");
     },
+    isExistTrainImage() {
+      return (this.$store.state.status.trainImageFlag == "생성 완료");
+    },
+
     isCompareImageMaking() {
       return (this.$store.state.status.compareImageFlag == "생성 중");
     },
+    isExistCompareImage() {
+      return (this.$store.state.status.compareImageFlag == "생성 완료");
+    },
+
     isTrainModelMaking() {
       return (this.$store.state.status.trainModelFlag == "생성 중");
     },
     isCompareModelMaking() {
       return (this.$store.state.status.compareModelFlag == "생성 중");
+    },
+    isExistTrainModel() {
+      return (this.$store.state.status.trainModelFlag == "생성 완료");
+    },
+    isExistCompareModel() {
+      return (this.$store.state.status.compareModelFlag == "생성 완료");
     },
 
     backToHome() {
@@ -363,15 +387,21 @@ export default {
     },
 
     contour(direction) {
-      this.$store.dispatch('refresh');
+      if (direction == "train/") {
+        this.$store.state.status.trainImageFlag = "생성 중";
+      } else {
+        this.$store.state.status.compareImageFlag = "생성 중";
+      }
       image.startContour(direction);
     },
 
     train() {
+      this.$store.state.status.trainModelFlag = "생성 중";
       model.startTrain(this.$store.state.name);
     },
 
     compare() {
+      this.$store.state.status.compareModelFlag = "생성 중";
       model.startCompare(this.$store.state.name);
     },
 
@@ -384,15 +414,17 @@ export default {
 
         image.getComparedImgs().then((imgUrls) => {
           this.compared.imgs = [];
-          this.compared.accuracy=[];
+          this.compared.accuracy = [];
           imgUrls.forEach((now, idx, array) => {
             this.compared.imgs.push(now.url);
-            this.compared.accuracy.push(1);
+            this.compared.accuracy.push(now.accuracy);
           });
         });
       } else {
+        this.rate.correct = "";
+        this.rate.wrong = "";
         this.compared.imgs = [];
-        this.compared.accuracy=[];
+        this.compared.accuracy = [];
       }
     },
 
